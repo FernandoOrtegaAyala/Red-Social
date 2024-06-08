@@ -1,8 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/navigation";
 import { AlignCenterVerticallyIcon } from "@radix-ui/react-icons";
-
-import ExitButton from "./ExitButtonToolbar";
 import ExitButtonToolbar from "./ExitButtonToolbar";
 import HomeButton from "./HomeButton";
 import MessageButton from "./MessageButton";
@@ -13,7 +11,7 @@ import AvatarSVG from "./svg/AvatarSVG";
 import ThemeButton from "./ThemeButton";
 
 export default function Toolbar({
-  proyect,
+  project,
   feed,
   search,
   notifications,
@@ -22,9 +20,9 @@ export default function Toolbar({
   settings1,
   profile,
   theme,
-  logOut1,
+  locale,
 }: {
-  proyect: string;
+  project: string;
   feed: string;
   search: string;
   notifications: string;
@@ -34,6 +32,7 @@ export default function Toolbar({
   profile: string;
   theme: string;
   logOut1: string;
+  locale: "es" | "en"
 }) {
   return (
     <>
@@ -51,7 +50,7 @@ export default function Toolbar({
             height={30}
           />
           <span className="hidden lg:inline-block lg:ml-2 lg:font-medium">
-            {proyect}
+            {project}
           </span>
         </Link>
         {/* Barra */}
@@ -88,7 +87,7 @@ export default function Toolbar({
             texto="hidden lg:flex"
             tema={theme}
           />
-          <ExitButtonToolbar logOut1={logOut1} />
+          <ExitButtonToolbar locale={locale}/>
         </div>
       </div>
     </>

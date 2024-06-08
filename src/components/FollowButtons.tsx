@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
-export default function FollowButtons() {
+export default function FollowButtons({message, follow, following}: {message: string; follow: string; following: string}) {
   const [siguiendo, setSiguiendo] = useState(false);
 
   function handleFollow() {
@@ -18,10 +18,10 @@ export default function FollowButtons() {
           className="w-1/2 px-0 h-9 font-bold"
           onClick={handleFollow}
           variant={siguiendo ? "secondary" : "default"}>
-          {siguiendo ? "Siguiendo" : "Seguir"}
+          {siguiendo ? following : follow}
         </Button>
         <Button className="w-1/2 px-0 h-9 font-bold" variant="outline">
-          Mensaje
+          {message}
         </Button>
       </div>
     </>

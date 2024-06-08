@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import {
   ArchiveIcon,
   AvatarIcon,
@@ -48,14 +49,15 @@ const Iconos: Obj = {
 };
 
 const ContenidoDemostracion: React.FC<Obj> = (props) => {
+  const t = useTranslations("Feed");
   return (
     <>
-      <div className="w-full h-auto mt-2 pb-20 md:pb-5 px-6 lg:px-10 bg-background flex flex-col gap-2 items-start justify-start text-muted-foreground">
-        <p className="text-base mt-5 mb-2">
-          Sin funcionalidad,<br></br> únicamente demostrativo visual
+      <div className="w-full h-auto mt-2 pb-20 md:pb-5 px-6 lg:px-10 bg-background flex flex-col gap-2 items-start justify-start ">
+        <p className="text-base mt-5 mb-2 text-current">
+          {t("contentDemostrative")}
         </p>
         {Object.entries(Iconos).map(([key, value]) => (
-          <div className="w-full" key={key}>
+          <div className="w-full text-muted-foreground" key={key}>
             <button className="w-full h-10 flex flex-row items-center hover:bg-ring hover:text-white hover:rounded-md">
               {key === "BackpackIcon" && (
                 <BackpackIcon className="w-6 h-full" />

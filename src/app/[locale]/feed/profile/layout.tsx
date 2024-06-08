@@ -23,6 +23,7 @@ export default function MuroInicio({
 }) {
   unstable_setRequestLocale(params.locale);
   const t = useTranslations("Feed");
+  const t2 = useTranslations("Profile");
 
   return (
     <>
@@ -54,15 +55,15 @@ export default function MuroInicio({
             </div>
             <div className="flex flex-col items-center justify-center">
               <p className="text-lg font-bold">120</p>
-              <p>Seguidores</p>
+              <p>{t2("followers")}</p>
             </div>
             <div className="flex flex-col items-center justify-center">
               <p className="text-lg font-bold">12</p>
-              <p>Seguidos</p>
+              <p>{t2("following")}</p>
             </div>
           </div>
         </div>
-        <FollowButtons />
+        <FollowButtons message={t2("message")} follow={t2("follow")} following={t2("following")} />
         <div className="mt-6 py-0 border shadow-2xl bg-background flex justify-center">
           <PostsButton />
           <ReelsButton />
@@ -70,7 +71,7 @@ export default function MuroInicio({
         </div>
         {children}
         <Toolbar
-          proyect={t("proyect")}
+          project={t("project")}
           feed={t("feed")}
           search={t("search")}
           notifications={t("notifications")}
@@ -80,6 +81,7 @@ export default function MuroInicio({
           profile={t("profile")}
           theme={t("theme")}
           logOut1={t("logOut1")}
+          locale = {params.locale}
         />
       </div>
     </>

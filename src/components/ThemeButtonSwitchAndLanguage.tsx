@@ -3,6 +3,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
+import LanguageButton from "@/components/LanguageButton";
 
 import { Switch } from "@/components/ui/switch";
 
@@ -35,11 +36,12 @@ export default function ThemeButtonSwitch() {
   };
 
   return (
-    <div className="absolute top-6 right-5 z-50 max-w-6xl mx-auto ">
-      <div className="mx-auto flex flex-row justify-center gap-1">
-        <SunIcon className="h-6 w-6 rotate-90 transition-all dark:rotate-0 dark:scale-100" />
+    <div className="absolute flex items-center justify-center gap-4 lg:gap-5 top-6 right-5 lg:right-10 z-50 max-w-6xl mx-auto ">
+      <LanguageButton />
+      <div className="mx-auto flex flex-row justify-center gap-2">
+        <MoonIcon className="h-6 w-6 rotate-0 transition-all dark:rotate-12 dark:scale-100" />
         <Switch checked={isChecked} onCheckedChange={handleCheckedChange} />
-        <MoonIcon className="h-6 w-6 rotate-180 transition-all dark:rotate-0 dark:scale-100" />
+        <SunIcon className="h-6 w-6 rotate-90 transition-all dark:rotate-0 dark:scale-100" />
       </div>
     </div>
   );

@@ -1,25 +1,37 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { Button } from "./ui/button";
 
-export default function EditarCuentaFormulario() {
+export default function EditarCuentaFormulario({
+  userName,
+  firstName,
+  lastName,
+  bio,
+  saveChanges,
+}: {
+  userName: string;
+  firstName: string;
+  lastName: string;
+  bio: string;
+  saveChanges: string;
+}) {
   const [valor, setValor] = useState("");
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValor(event.target.value);
   };
 
+
   return (
     <>
       <form method="POST">
         <div className="grid gap-2 mt-8 md:mt-10">
           <Label className="text-xs md:text-base" htmlFor="nombre_usuario">
-            Nombre de usuario
+            {userName}
           </Label>
           <Input
             className="text-xs md:text-base"
@@ -30,7 +42,7 @@ export default function EditarCuentaFormulario() {
         </div>
         <div className="grid gap-2 mt-3 md:mt-5">
           <Label className="text-xs md:text-base" htmlFor="nombre">
-            Nombre
+            {firstName}
           </Label>
           <Input
             className="text-xs md:text-base"
@@ -41,7 +53,7 @@ export default function EditarCuentaFormulario() {
         </div>
         <div className="grid gap-2 mt-3 md:mt-5">
           <Label className="text-xs md:text-base" htmlFor="apellidos">
-            Apellidos
+            {lastName}
           </Label>
           <Input
             className="text-xs md:text-base"
@@ -52,7 +64,7 @@ export default function EditarCuentaFormulario() {
         </div>
         <div className="grid gap-2 mt-3 mb-14 md:mb-0 md:mt-5 h-auto">
           <Label className="text-xs md:text-base" htmlFor="biografía">
-            Biografía
+            {bio}
           </Label>
           <div
             className={`p-2 flex flex-row w-full rounded-md border border-input bg-background ring-offset-background ${
@@ -74,7 +86,7 @@ export default function EditarCuentaFormulario() {
             </div>
           </div>
           <div className="hidden w-full md:flex justify-end md:mt-8 ">
-            <Button className="w-1/3">Guardar cambios</Button>
+            <Button className="w-1/3">{saveChanges}</Button>
           </div>
         </div>
       </form>

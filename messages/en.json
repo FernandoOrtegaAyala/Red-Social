@@ -1,6 +1,6 @@
 {
   "Home": {
-    "proyectName": "Project | Social Network",
+    "projectName": "Project | Social Network",
     "loginCardHeader": "Click on the GitHub icon to access as a guest",
     "login": "Login",
     "email": "Email",
@@ -13,7 +13,7 @@
     "gitIcon": "Guest",
     "privacyPolicy": "Privacy Policy",
     "createdBy": "Created by",
-    "home": "Home"
+    "home": "Return to homepage"
   },
   "Policy": {
     "policyDescription": "The following Privacy Policy sets forth the terms under which information provided by its users is used and protected when using its website. This website was created for academic purposes, and we are committed to the security of user data. When you are asked to fill in personal information fields by which you can be identified, it is done so with the assurance that it will only be used in accordance with the terms of this document. By registering an account, you accept the terms outlined herein.",
@@ -63,7 +63,7 @@
     "like": "Like",
     "likes": "Likes",
     "share": "Share",
-    "proyect": "Proyect",
+    "project": "Project",
     "feed": "Feed",
     "search": "Search",
     "notifications": "Notifications",
@@ -77,17 +77,33 @@
     "logOut2": "Log out",
     "account": "Account",
     "editProfile": "Edit profile",
-    "changePassword": "Change password",
     "language": "Language",
     "contentDemostrative": "Without functionality, visual demonstration.",
-    "changePhoto": "Change photo",
-    "bio": "Bio",
-    "saveChanges": "Save changes",
-    "currentPassword": "Current password",
-    "newPassword": "New password",
-    "confirmNewPassword": "Confirm new password"
+    "logOutConfirm": "Are you sure you want to log out?",
+    "logOutText": "You will need to log in again.",
+    "cancel": "Cancel"
   },
   "404": {
     "notFound": "Page not found"
+  },
+  "changePass": {
+    "changePassword": "Change password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "saveChanges": "Save changes"
+  },
+  "Profile": {
+    "editProfile": "Edit profile",
+    "changePhoto": "Change photo",
+    "bio": "Bio",
+    "Account": "Account",
+    "posts": "Posts",
+    "followers": "Followers",
+    "following": "Following",
+    "follow": "Follow",
+    "message": "Message",
+    "noFunctionality": "No functionality",
+    "demonstrationSection": "Demonstration section"
   }
 }

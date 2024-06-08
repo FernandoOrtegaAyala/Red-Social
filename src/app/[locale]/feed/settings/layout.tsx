@@ -24,14 +24,14 @@ export default function ConfiguracionLayout({
         <NotificationContainer />
         {/*HeaderConfig*/}
         <HeaderConfig
-          texto="Configuración"
+          texto={t("settings2")}
           referencia="/feed"
           checkIcono="hidden"
         />
         {/*Content*/}
         <div className=" overflow-y-auto md:ml-20 lg:ml-40 lg:col-start-1 lg:col-span-1 border-r shadow-2xl bg-background">
           <h3 className="hidden md:flex md:flex-row md:items-center md:justify-center font-semibold tracking-tight text-xl lg:text-2xl text-center my-5">
-            Configuración
+            {t("settings2")}
           </h3>
           <div className="hidden md:flex md:flex-col">
             <ContenidoFuncional tema={t("theme")} />
@@ -41,7 +41,7 @@ export default function ConfiguracionLayout({
         {children}
         {/*Toolbar*/}
         <Toolbar
-          proyect={t("proyect")}
+          project={t("project")}
           feed={t("feed")}
           search={t("search")}
           notifications={t("notifications")}
@@ -51,6 +51,7 @@ export default function ConfiguracionLayout({
           profile={t("profile")}
           theme={t("theme")}
           logOut1={t("logOut1")}
+          locale={params.locale}
         />
       </div>
     </>

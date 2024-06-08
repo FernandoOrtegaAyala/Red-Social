@@ -1,6 +1,6 @@
 {
   "Home": {
-    "proyectName": "Proyecto | Red Social",
+    "projectName": "Proyecto | Red Social",
     "loginCardHeader": "Click al icono de Github para acceder como invitado",
     "login": "Iniciar sesión",
     "email": "Correo",
@@ -13,7 +13,7 @@
     "gitIcon": "Invitado",
     "privacyPolicy": "Política de Privacidad",
     "createdBy": "Creado por",
-    "home": "Inicio"
+    "home": "Volver a inicio"
   },
   "Policy": {
     "policyDescription": "La presente Política de Privacidad establece los términos en que usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Sitio web creado con fines académicos, estoy comprometido con la seguridad de los datos de sus usuarios. Cuando se le pide llenar los campos de información personal con la cual usted pueda ser identificado, se realiza asegurando que sólo se empleará de acuerdo con los términos de este documento, al registrar una cuenta acepta los terminos establecidos.",
@@ -63,7 +63,7 @@
     "like": "Me gusta",
     "likes": "Me gusta",
     "share": "Compartir",
-    "proyect": "Proyecto",
+    "project": "Proyecto",
     "feed": "Inicio",
     "search": "Buscar",
     "notifications": "Alertas",
@@ -77,17 +77,33 @@
     "logOut2": "Cerrar sesión",
     "account": "Cuenta",
     "editProfile": "Editar perfil",
-    "changePassword": "Cambiar contraseña",
     "language": "Idioma",
     "contentDemostrative": "Sin funcionalidad,únicamente demostrativo visual",
-    "changePhoto": "Cambiar foto",
-    "bio": "Biografía",
-    "saveChanges": "Guardar cambios",
-    "currentPassword": "Contraseña actual",
-    "newPassword": "Nueva contraseña",
-    "confirmNewPassword": "Confirmar nueva contraseña"
+    "logOutConfirm": "¿Está seguro de querer cerrar su sesión?",
+    "logOutText": "Tendrá que volver a iniciar sesión.",
+    "cancel": "Cancelar"
   },
   "404": {
     "notFound": "Página no encontrada"
+  },
+  "changePass": {
+    "changePassword": "Cambiar contraseña",
+    "currentPassword": "Contraseña actual",
+    "newPassword": "Nueva contraseña",
+    "confirmNewPassword": "Confirmar nueva contraseña",
+    "saveChanges": "Guardar cambios"
+  },
+  "Profile": {
+    "editProfile": "Editar perfil",
+    "changePhoto": "Cambiar foto",
+    "bio": "Biografía",
+    "Account": "Cuenta",
+    "posts": "Publicaciones",
+    "followers": "Seguidores",
+    "following": "Siguiendo",
+    "follow": "Seguir",
+    "message": "Mensaje",
+    "noFunctionality": "Sin funcionalidad",
+    "demonstrationSection": "Sección demostrativa"
   }
 }
