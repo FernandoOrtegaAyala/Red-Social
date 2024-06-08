@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import { Link } from "@/navigation";
-import { AvatarIcon } from "@radix-ui/react-icons";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export default function Message() {
+export default function MessageBar() {
   const [nuevo, setNuevo] = useState(false);
 
   return (

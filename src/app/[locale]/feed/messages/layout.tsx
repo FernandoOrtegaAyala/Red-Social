@@ -1,38 +1,52 @@
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import HeaderConfig from "@/components/HeaderConfig";
-import Message from "@/components/Message";
 import NotificationContainer from "@/components/NotificationContainer";
 import SearchContainer from "@/components/SearchContainer";
 import Toolbar from "@/components/Toolbar";
+import MessageBar from "@/components/MessageBar";
 
-export default function MessagesPage(params: { locale: "es" | "en" }) {
+export default function MessagesPage({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { locale: "es" | "en" };
+}) {
   unstable_setRequestLocale(params.locale);
   const t = useTranslations("Feed");
 
   return (
     <>
-      <div className="h-screen w-full relative lg:pl-36
-       md:grid md:grid-cols-3 md:overflow-hidden">
+      <div className="h-screen w-full relative md:pl-16 lg:pl-36 md:grid md:grid-cols-8  lg:grid-cols-4 md:overflow-hidden">
         <SearchContainer />
         <NotificationContainer />
         <HeaderConfig texto="Mensajes" referencia="/feed" checkIcono="hidden" />
-        <div className="bg-fuchsia-500 mt-16 md:pl-2 w-full h-full overflow-y-auto">
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
+        <div className="relative lg:pl-4 md:col-start-1 md:col-span-2 lg:col-span-1 w-full h-full overflow-y-auto">
+          <h3 className="md:flex md:sticky py-4 top-0 z-50 text-2xl font-bold bg-background w-full h-auto justify-center items-center text-current">
+            {t("messages")}
+          </h3>
+          <div className="w-full h-full">
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+            <MessageBar /> 
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+            <MessageBar />
+          </div>
+          
         </div>
-        <div className="bg-orange-800 mt-16 md:col-start-2 md:col-en"></div>
+        {children}
         <Toolbar
           project={t("project")}
           feed={t("feed")}
