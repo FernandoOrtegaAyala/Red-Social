@@ -25,7 +25,7 @@ export default function EditarCuentaFormulario({
     setValor(event.target.value);
   };
 
-
+  
   return (
     <>
       <form method="POST">
