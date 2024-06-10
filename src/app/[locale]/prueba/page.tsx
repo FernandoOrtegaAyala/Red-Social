@@ -6,15 +6,17 @@ import { Cross1Icon } from "@radix-ui/react-icons";
 import useEmblaCarousel from 'embla-carousel-react'
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Autoplay from 'embla-carousel-autoplay'
 export default function Prueba() {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
     setDeshabilitar(true)
+    console.log(acceptedFiles)
   }, [])
   const [deshabilitar, setDeshabilitar] = useState(false);
   const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:3, disabled: deshabilitar})
   const [valor, setValor] = useState("");
-  const [emblaRef] = useEmblaCarousel()
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()])
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValor(event.target.value);
@@ -50,8 +52,8 @@ export default function Prueba() {
   
   return (
     <>
-      <div className="w-full h-screen flex justify-center items-center bg-background">
-        <form onSubmit={handleSubmit} className={`w-full  flex flex-col items-center justify-center bg-card border border-border rounded-lg ${deshabilitar ? "mx-0 h-full" : "h-2/3 mx-4"}`}>
+      <div className="w-full h-screen flex justify-center items-center bg-background overflow-hidden">
+        <form onSubmit={handleSubmit} className={`w-full  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar ? "mx-0 h-full" : "h-2/3 mx-4 border border-border"}`}>
           <div className="relative w-full flex flex-row items-center justify-center">
             <Cross1Icon className="w-6 h-6 absolute top-5 right-5"/>
             <h3 className="text-2xl font-bold mt-5 mb-3">Crear post</h3>
@@ -63,7 +65,7 @@ export default function Prueba() {
                 : "focus-within:ring-ring"
             } disabled:cursor-not-allowed disabled:opacity-50`}>
             <textarea
-              className="h-20 md:h-36 py-2 w-full resize-none placeholder:text-muted-foreground text-lg md:text-base lg:text-lg bg-transparent border-transparent focus:outline-none"
+              className="h-20 md:h-36 py-2 w-full resize-none placeholder:text-muted-foreground text-lg font-medium md:text-base lg:text-lg bg-transparent border-transparent focus:outline-none"
               id="biografía"
               placeholder="Comparte lo que sientes"
               onChange={handleChange}
@@ -77,16 +79,37 @@ export default function Prueba() {
           </div>
           <div className={`relative bg-card w-full h-full flex flex-col items-center justify-center ${deshabilitar ? "dropzone disabled" : ""}`} {...getRootProps()}>
             <input {...getInputProps()} />
-            <FaPhotoVideo className="w-20 h-20"/>
             {
-              isDragActive || deshabilitar ?
-                <p>Drop the files here ...</p> :
-                <p className="text-center">Drag and drop files here, or click to select files</p>
+              deshabilitar ? "" : <FaPhotoVideo className="w-20 h-20"/>
             }
-            {acceptedFiles && (
-            acceptedFiles.map(file => (<Image width={400} height={400} className="absolute align-middle justify-self-center" src={URL.createObjectURL(file)} alt=""
-          />)
-          ))}
+            {
+              !isDragActive ? (
+                !deshabilitar ? (<div className="flex flex-col">
+                  <p className="text-center">Drag and drop files here, or click to select files.</p>
+                  <p className="text-center">3 imagenes maximo</p>
+                </div>): ""
+              ): (
+                <p>Drop the files here ...</p>
+              )
+            }
+            {acceptedFiles ? (
+              <div className="embla absolute overflow-hidden w-[400px] h-[400px] align-middle justify-self-center" ref={emblaRef}>
+                <div className="embla__container flex ">
+                  {acceptedFiles.map(file => (
+                    <div className="embla__slide ">
+                      <Image 
+                      key={file.name}
+                      width={400} 
+                      height={400} 
+                      className="absolute rounded-lg  embla__slide" 
+                      src={URL.createObjectURL(file)} 
+                      alt=""
+                    />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : ""}
           </div>
           <Button className={`text-xl font-semibold ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>Compartir</Button>
         </form>
