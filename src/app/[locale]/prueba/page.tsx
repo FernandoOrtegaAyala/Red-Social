@@ -3,14 +3,18 @@ import { FaPhotoVideo } from "react-icons/fa";
 import { useCallback, useState, ChangeEvent } from "react";
 import { useDropzone } from "react-dropzone";
 import { Cross1Icon } from "@radix-ui/react-icons";
+import useEmblaCarousel from 'embla-carousel-react'
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 export default function Prueba() {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
-    console.log(acceptedFiles)
+    setDeshabilitar(true)
   }, [])
-  const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:3})
+  const [deshabilitar, setDeshabilitar] = useState(false);
+  const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:3, disabled: deshabilitar})
   const [valor, setValor] = useState("");
+  const [emblaRef] = useEmblaCarousel()
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValor(event.target.value);
@@ -47,7 +51,7 @@ export default function Prueba() {
   return (
     <>
       <div className="w-full h-screen flex justify-center items-center bg-background">
-        <form onSubmit={handleSubmit} className="w-full mx-4 h-2/3 flex flex-col items-center justify-center bg-card border border-border rounded-lg">
+        <form onSubmit={handleSubmit} className={`w-full  flex flex-col items-center justify-center bg-card border border-border rounded-lg ${deshabilitar ? "mx-0 h-full" : "h-2/3 mx-4"}`}>
           <div className="relative w-full flex flex-row items-center justify-center">
             <Cross1Icon className="w-6 h-6 absolute top-5 right-5"/>
             <h3 className="text-2xl font-bold mt-5 mb-3">Crear post</h3>
@@ -59,7 +63,7 @@ export default function Prueba() {
                 : "focus-within:ring-ring"
             } disabled:cursor-not-allowed disabled:opacity-50`}>
             <textarea
-              className="h-24 md:h-36 py-2 w-full resize-none placeholder:text-muted-foreground text-lg md:text-base lg:text-lg bg-transparent border-transparent focus:outline-none"
+              className="h-20 md:h-36 py-2 w-full resize-none placeholder:text-muted-foreground text-lg md:text-base lg:text-lg bg-transparent border-transparent focus:outline-none"
               id="biografía"
               placeholder="Comparte lo que sientes"
               onChange={handleChange}
@@ -71,28 +75,20 @@ export default function Prueba() {
               <span className="absolute right-2 bottom-0">{valor.length}/500</span>
             </div>
           </div>
-          <div className="bg-card w-full h-full flex flex-col items-center justify-center" {...getRootProps()}>
+          <div className={`relative bg-card w-full h-full flex flex-col items-center justify-center ${deshabilitar ? "dropzone disabled" : ""}`} {...getRootProps()}>
             <input {...getInputProps()} />
             <FaPhotoVideo className="w-20 h-20"/>
             {
-              isDragActive ?
+              isDragActive || deshabilitar ?
                 <p>Drop the files here ...</p> :
                 <p className="text-center">Drag and drop files here, or click to select files</p>
             }
-          </div>
-          {acceptedFiles && (
-            acceptedFiles.map(file => (<img src={URL.createObjectURL(file)} alt="" 
-            style={{
-              width: '300px',
-              height: '300px'
-            }}
+            {acceptedFiles && (
+            acceptedFiles.map(file => (<Image width={400} height={400} className="absolute align-middle justify-self-center" src={URL.createObjectURL(file)} alt=""
           />)
-
-            )
-
-          
-        )}
-          <Button className="text-xl mt-10 mb-5 font-semibold" variant={"default"}>Publicar</Button>
+          ))}
+          </div>
+          <Button className={`text-xl font-semibold ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>Compartir</Button>
         </form>
       </div>
     </>
