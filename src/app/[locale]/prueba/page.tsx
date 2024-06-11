@@ -3,10 +3,8 @@ import { FaPhotoVideo } from "react-icons/fa";
 import { useCallback, useState, ChangeEvent } from "react";
 import { useDropzone } from "react-dropzone";
 import { Cross1Icon } from "@radix-ui/react-icons";
-import useEmblaCarousel from 'embla-carousel-react'
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import Autoplay from 'embla-carousel-autoplay'
+import { LayoutGrid } from "@/components/ui/layout-grid";
 
 const windowWidth = window.innerWidth;
 
@@ -19,7 +17,6 @@ export default function Prueba() {
   const [deshabilitar, setDeshabilitar] = useState(false);
   const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:4, disabled: deshabilitar})
   const [valor, setValor] = useState("");
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()])
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValor(event.target.value);
@@ -55,7 +52,7 @@ export default function Prueba() {
   
   return (
     <>
-      <div className="w-full h-screen flex justify-center items-center bg-background overflow-hidden">
+      <div className="w-full h-screen relative flex justify-center items-center bg-background overflow-hidden">
         <form onSubmit={handleSubmit} className={`w-full  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"}`}>
           <div className="relative w-full flex flex-row items-center justify-center">
             <Cross1Icon className="w-6 h-6 absolute top-5 right-5"/>
@@ -80,7 +77,7 @@ export default function Prueba() {
               <span className="absolute right-2 bottom-0">{valor.length}/500</span>
             </div>
           </div>
-          <div className={`relative bg-card w-full h-full flex flex-col items-center justify-center ${deshabilitar ? "dropzone disabled" : ""}`} {...getRootProps()}>
+          <div className={`bg-card w-full h-full flex flex-col items-center justify-center ${deshabilitar ? "dropzone disabled" : "px-4"}`} {...getRootProps()}>
             <input {...getInputProps()} />
             {
               deshabilitar ? "" : <FaPhotoVideo className="w-20 h-20"/>
@@ -95,23 +92,8 @@ export default function Prueba() {
                 <p>Drop the files here ...</p>
               )
             }
-            {acceptedFiles ? (
-              <div className="embla absolute overflow-hidden w-[400px] h-[400px] align-middle justify-self-center" ref={emblaRef}>
-                <div className="embla__container flex ">
-                  {acceptedFiles.map(file => (
-                    <div className="embla__slide ">
-                      <Image 
-                      key={file.name}
-                      width={400} 
-                      height={400} 
-                      className="absolute rounded-lg  embla__slide" 
-                      src={URL.createObjectURL(file)} 
-                      alt=""
-                    />
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {deshabilitar ? (
+              <LayoutGrid cards={acceptedFiles} />
             ) : ""}
           </div>
           <Button className={`text-xl font-semibold ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>Compartir</Button>

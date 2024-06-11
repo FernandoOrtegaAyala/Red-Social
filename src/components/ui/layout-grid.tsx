@@ -1,20 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { Cross1Icon } from "@radix-ui/react-icons";
 
-type Card = {
-  id: number;
-  className: string;
-  thumbnail: string;
-};
+export const LayoutGrid = ({ cards }: { cards: File[] }) => {
+  const [selected, setSelected] = useState<File | null>(null);
+  const [lastSelected, setLastSelected] = useState<File | null>(null);
 
-export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
-  const [selected, setSelected] = useState<Card | null>(null);
-  const [lastSelected, setLastSelected] = useState<Card | null>(null);
-
-  const handleClick = (card: Card) => {
+  const handleClick = (card: File) => {
     setLastSelected(selected);
     setSelected(card);
   };
@@ -25,29 +19,29 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
   };
 
   return (
-    <div className="w-full h-full p-10 grid grid-cols-1 md:grid-cols-3  max-w-7xl mx-auto gap-4 relative">
+    <div className="w-full h-full p-2 pb-4 flex flex-col items-center justify-center   md:grid md:grid-cols-3  max-w-7xl mx-auto gap-4">
       {
         selected ? (<div className="absolute inset-0 bg-black opacity-80 z-[50]">
       </div>) : null
       }
       {cards.map((card, i) => (
-        <div key={i} className={cn(card.className, "")}>    
+        <div key={i} className={cn( "w-full h-full")}>    
           <motion.div
             onClick={() => handleClick(card)}
             className={cn(
-              card.className,
-              "relative overflow-hidden hover:cursor-pointer hover:opacity-80",
-              selected?.id === card.id
+              
+              "relative overflow-hidden hover:cursor-pointer hover:opacity-80 flex justify-center items-center",
+              selected?.size === card.size
                 ? "rounded-lg hover:cursor-pointer  absolute inset-0 h-auto w-full bg-transparent md:w-2/3 m-auto z-50 flex justify-center items-center flex-wrap flex-col hover:opacity-100 "
-                : lastSelected?.id === card.id
-                ? "z-40 bg-white rounded-xl h-full w-full"
-                : "bg-white rounded-xl h-full w-full"
+                : lastSelected?.size === card.size
+                ? "z-40 bg-card rounded-xl h-full w-full"
+                : "bg-card rounded-xl h-full w-full"
             )}
             layout
           >
-            {selected?.id === card.id ? (
+            {selected?.size === card.size ? (
               <div className="h-2/3 w-full">
-                <button onClick={handleOutsideClick} className="absolute hover:cursor-pointer top-5 md:top-20 right-5 md:right-0 w-8 md:w-10 h-8 md:h-10 z-[250]">
+                <button onClick={handleOutsideClick} className="absolute hover:cursor-pointer top-10 md:top-20 right-5 md:right-0 w-8 md:w-10 h-8 md:h-10 z-[250]">
                   <Cross1Icon className="w-full h-full hover:cursor-pointer text-white" />
                 </button>
                 <SelectedCard selected={selected} />
@@ -61,37 +55,55 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
         onClick={handleOutsideClick}
         className={cn(
           "absolute h-full w-full left-0 top-0 z-[200]",
-          selected?.id ? "pointer-events-auto" : "pointer-events-none"
+          selected?.size ? "pointer-events-auto" : "pointer-events-none"
         )}
-        animate={{ opacity: selected?.id ? 0.3 : 0 }}
+        animate={{ opacity: selected?.size ? 0.3 : 0 }}
       />
     </div>
   );
 };
 
-const BlurImage = ({ card }: { card: Card }) => {
+const BlurImage = ({ card }: { card: File }) => {
   const [loaded, setLoaded] = useState(false);
+  const [objectURL, setObjectURL] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (card) {
+      const url = URL.createObjectURL(card);
+      setObjectURL(url);
+
+      
+      return () => URL.revokeObjectURL(url);
+    }
+  }, [card]);
+
+  if (!objectURL) {
+    return <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white" role="status">
+      <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>;
+    </div> 
+  }
+
   return (
     <img
-      src={card.thumbnail}
+      src={objectURL}
       style={{
-          width: 'auto',
-          height: 'auto',
-          maxWidth: '100%',
-          maxHeight: '100%',
-          objectFit: 'contain',
-        }}
+        width: 'auto',
+        height: 'auto',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        objectFit: 'contain',
+      }}
       onLoad={() => setLoaded(true)}
       className={cn(
         "absolute align-middle justify-self-center transition duration-200 shadow-2xl",
-        loaded ? "blur-none" : ""
+        loaded ? "blur-none" : "blur"
       )}
-      alt="thumbnail"
+      alt={card.name}
     />
   );
 };
 
-const SelectedCard = ({ selected }: { selected: Card | null }) => {
+const SelectedCard = ({ selected }: { selected: File | null }) => {
   return (
     <div className="bg-transparent h-2/3 w-full flex flex-col justify-end rounded-lg relative z-[60]">
       <motion.div
