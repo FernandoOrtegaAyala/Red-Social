@@ -19,7 +19,7 @@ export const LayoutGrid = ({ cards }: { cards: File[] }) => {
   };
 
   return (
-    <div className="w-full h-full p-2 pb-4 flex flex-col items-center justify-center   md:grid md:grid-cols-3  max-w-7xl mx-auto gap-4">
+    <div className={`${cards.length > 2 ? "grid-cols-2" : "grid-cols-1"}  w-full h-full p-2 md:p-4 pb-4 grid max-w-7xl  mx-auto gap-4`}>
       {
         selected ? (<div className="absolute inset-0 bg-black opacity-80 z-[50]">
       </div>) : null
@@ -95,7 +95,7 @@ const BlurImage = ({ card }: { card: File }) => {
       }}
       onLoad={() => setLoaded(true)}
       className={cn(
-        "absolute align-middle justify-self-center transition duration-200 shadow-2xl",
+        "absolute align-middle justify-self-center transition duration-200 shadow-2xl rounded-md",
         loaded ? "blur-none" : "blur"
       )}
       alt={card.name}

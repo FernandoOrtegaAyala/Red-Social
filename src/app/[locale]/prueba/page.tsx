@@ -53,9 +53,11 @@ export default function Prueba() {
   return (
     <>
       <div className="w-full h-screen relative flex justify-center items-center bg-background overflow-hidden">
-        <form onSubmit={handleSubmit} className={`w-full  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"}`}>
+        <form onSubmit={handleSubmit} className={`w-full lg:w-2/3 lg:max-w-[600px] lg:max-h-[600px] lg:mx-0  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar && windowWidth < 768 ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"}`}>
           <div className="relative w-full flex flex-row items-center justify-center">
-            <Cross1Icon className="w-6 h-6 absolute top-5 right-5"/>
+            <button className="w-6 h-6 absolute top-5 right-5">
+              <Cross1Icon className="w-full h-full"/>
+            </button>
             <h3 className="text-2xl font-bold mt-5 mb-3">Crear post</h3>
           </div>
           <div
@@ -65,7 +67,7 @@ export default function Prueba() {
                 : "focus-within:ring-ring"
             } disabled:cursor-not-allowed disabled:opacity-50`}>
             <textarea
-              className="h-20 md:h-28 py-2 w-full resize-none placeholder:text-muted-foreground text-lg font-medium md:text-xl lg:text-lg bg-transparent border-transparent focus:outline-none"
+              className="h-20 md:h-28 py-2 md:pt-6 w-full resize-none placeholder:text-muted-foreground text-lg font-medium md:text-xl lg:text-lg bg-transparent border-transparent focus:outline-none"
               id="biografía"
               placeholder="Comparte lo que sientes"
               onChange={handleChange}
@@ -77,7 +79,7 @@ export default function Prueba() {
               <span className="absolute right-2 bottom-0">{valor.length}/500</span>
             </div>
           </div>
-          <div className={`bg-card w-full h-full flex flex-col items-center justify-center ${deshabilitar ? "dropzone disabled" : "px-4"}`} {...getRootProps()}>
+          <div className={`bg-card w-full h-full flex flex-col items-center justify-center hover:cursor-pointer ${deshabilitar ? "dropzone disabled" : "px-4"}`} {...getRootProps()}>
             <input {...getInputProps()} />
             {
               deshabilitar ? "" : <FaPhotoVideo className="w-20 h-20"/>
@@ -96,7 +98,7 @@ export default function Prueba() {
               <LayoutGrid cards={acceptedFiles} />
             ) : ""}
           </div>
-          <Button className={`text-xl font-semibold ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>Compartir</Button>
+          <Button className={`text-xl font-semibold lg:mb-6 ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>Compartir</Button>
         </form>
       </div>
     </>
