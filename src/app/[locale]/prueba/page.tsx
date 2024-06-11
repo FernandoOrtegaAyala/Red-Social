@@ -7,6 +7,9 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Autoplay from 'embla-carousel-autoplay'
+
+const windowWidth = window.innerWidth;
+
 export default function Prueba() {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
@@ -14,7 +17,7 @@ export default function Prueba() {
     console.log(acceptedFiles)
   }, [])
   const [deshabilitar, setDeshabilitar] = useState(false);
-  const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:3, disabled: deshabilitar})
+  const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:4, disabled: deshabilitar})
   const [valor, setValor] = useState("");
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()])
 
@@ -53,19 +56,19 @@ export default function Prueba() {
   return (
     <>
       <div className="w-full h-screen flex justify-center items-center bg-background overflow-hidden">
-        <form onSubmit={handleSubmit} className={`w-full  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar ? "mx-0 h-full" : "h-2/3 mx-4 border border-border"}`}>
+        <form onSubmit={handleSubmit} className={`w-full  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"}`}>
           <div className="relative w-full flex flex-row items-center justify-center">
             <Cross1Icon className="w-6 h-6 absolute top-5 right-5"/>
             <h3 className="text-2xl font-bold mt-5 mb-3">Crear post</h3>
           </div>
           <div
-            className={`p-4 flex relative pb-5 flex-row w-full bg-card ring-offset-background ${
+            className={`p-4 md:px4 md:pt-0 flex relative pb-5 flex-row w-full bg-card ring-offset-background ${
               valor.length > 500
                 ? "border focus-within:ring-red-600 border-red-600"
                 : "focus-within:ring-ring"
             } disabled:cursor-not-allowed disabled:opacity-50`}>
             <textarea
-              className="h-20 md:h-36 py-2 w-full resize-none placeholder:text-muted-foreground text-lg font-medium md:text-base lg:text-lg bg-transparent border-transparent focus:outline-none"
+              className="h-20 md:h-28 py-2 w-full resize-none placeholder:text-muted-foreground text-lg font-medium md:text-xl lg:text-lg bg-transparent border-transparent focus:outline-none"
               id="biografía"
               placeholder="Comparte lo que sientes"
               onChange={handleChange}
@@ -86,7 +89,7 @@ export default function Prueba() {
               !isDragActive ? (
                 !deshabilitar ? (<div className="flex flex-col">
                   <p className="text-center">Drag and drop files here, or click to select files.</p>
-                  <p className="text-center">3 imagenes maximo</p>
+                  <p className="text-center">4 imagenes maximo</p>
                 </div>): ""
               ): (
                 <p>Drop the files here ...</p>
