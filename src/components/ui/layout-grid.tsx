@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { Cross1Icon } from "@radix-ui/react-icons";
 
-export const LayoutGrid = ({ cards }: { cards: File[] }) => {
+
+export const LayoutGrid = ({ cards, handleSetObjectURL }: { cards: File[]; handleSetObjectURL: () => void }) => {
   const [selected, setSelected] = useState<File | null>(null);
   const [lastSelected, setLastSelected] = useState<File | null>(null);
 
@@ -47,7 +48,7 @@ export const LayoutGrid = ({ cards }: { cards: File[] }) => {
                 <SelectedCard selected={selected} />
               </div>
             ) : null}
-            <BlurImage card={card} />
+            <BlurImage card={card} onSetObjectURL={handleSetObjectURL} />
           </motion.div>
         </div>
       ))}
@@ -63,7 +64,12 @@ export const LayoutGrid = ({ cards }: { cards: File[] }) => {
   );
 };
 
-const BlurImage = ({ card }: { card: File }) => {
+interface BlurImageProps {
+  card: File;
+  onSetObjectURL: (url: string, revokeUrl: () => void) => void;
+}
+
+const BlurImage: React.FC<BlurImageProps> = ({ card, onSetObjectURL }) => {
   const [loaded, setLoaded] = useState(false);
   const [objectURL, setObjectURL] = useState<string | null>(null);
 
@@ -71,11 +77,12 @@ const BlurImage = ({ card }: { card: File }) => {
     if (card) {
       const url = URL.createObjectURL(card);
       setObjectURL(url);
+      onSetObjectURL(url, () => URL.revokeObjectURL(url));
 
-      
       return () => URL.revokeObjectURL(url);
     }
-  }, [card]);
+  }, [card, onSetObjectURL]);
+
 
   if (!objectURL) {
     return <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white" role="status">

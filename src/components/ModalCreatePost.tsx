@@ -1,11 +1,12 @@
 "use client"
 
 import { FaPhotoVideo } from "react-icons/fa";
-import { useCallback, useState, ChangeEvent, useEffect } from "react";
+import { useCallback, useState, ChangeEvent, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
-import { Cross1Icon } from "@radix-ui/react-icons";
+
 import { Button } from "@/components/ui/button";
 import { LayoutGrid } from "@/components/ui/layout-grid";
+import ModalCancelBtn from "./ModalCancelBtn";
 
 const windowWidth = window.innerWidth;
 
@@ -17,7 +18,8 @@ export default function ModalCreatePost() {
   const [deshabilitar, setDeshabilitar] = useState(false);
   const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:4, disabled: deshabilitar})
   const [valor, setValor] = useState("");
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false)
+  const [objectURLs, setObjectURLs] = useState<{ url: string, revoke: () => void }[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValor(event.target.value);
@@ -50,30 +52,36 @@ export default function ModalCreatePost() {
     });
   };
 
-  const modalContainer = document.getElementById("modalContainer");
+  const modalContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleCreateBtn = () => {
-    setModal(prevState => !prevState)
-  }
-  
+  const handleSetObjectURL = useCallback((url: string, revokeUrl: () => void) => {
+    setObjectURLs((prev) => [...prev, { url, revoke: revokeUrl }]);
+  }, []);
+
+  const handleRemoveAllURLs = () => {
+    objectURLs.forEach(item => item.revoke());
+    setObjectURLs([]);
+    setModal(prevstate => !prevstate)
+    acceptedFiles.splice(0, acceptedFiles.length)
+    setDeshabilitar(false)
+  };
+
   useEffect(() => {
-    if (modalContainer) {
-      modalContainer?.classList.toggle("hidden");
-      modalContainer?.classList.toggle("flex");
+    if (modalContainerRef.current) {
+      modalContainerRef.current.classList.toggle("hidden");
+      modalContainerRef.current.classList.toggle("flex");
     }
   }, [modal]);
 
   return (
     <>
-      <div id="modalContainer" className="hidden z-10 w-full h-screen absolute inset-0 justify-center items-center overflow-hidden">
-        <div onClick={handleCreateBtn} className="h-screen w-full absolute bg-black bg-opacity-70 inset-0">
+      <div id="modalContainer" ref={modalContainerRef} className="hidden z-10 w-full h-screen absolute inset-0 justify-center items-center overflow-hidden">
+        <div onClick={handleRemoveAllURLs} className="h-screen w-full absolute bg-black bg-opacity-70 inset-0">
 
         </div>
         <form onSubmit={handleSubmit} className={`w-full z-50 lg:w-2/3 lg:max-w-[600px] lg:max-h-[600px] lg:mx-0  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar && windowWidth < 768 ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"}`}>
           <div className="relative w-full flex flex-row items-center justify-center">
-            <button onClick={handleCreateBtn} className="w-6 h-6 absolute top-5 right-5">
-              <Cross1Icon className="w-full h-full"/>
-            </button>
+            <ModalCancelBtn handleRemoveAllURLs={handleRemoveAllURLs}/>
             <h3 className="text-2xl font-bold mt-5 mb-3">Crear post</h3>
           </div>
           <div
@@ -111,7 +119,7 @@ export default function ModalCreatePost() {
               )
             }
             {deshabilitar ? (
-              <LayoutGrid cards={acceptedFiles} />
+              <LayoutGrid cards={acceptedFiles} handleSetObjectURL={handleSetObjectURL} />
             ) : ""}
           </div>
           <Button className={`text-xl font-semibold lg:mb-6 ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>Compartir</Button>
