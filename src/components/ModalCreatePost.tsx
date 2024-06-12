@@ -1,6 +1,7 @@
 "use client"
+
 import { FaPhotoVideo } from "react-icons/fa";
-import { useCallback, useState, ChangeEvent } from "react";
+import { useCallback, useState, ChangeEvent, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
@@ -8,15 +9,15 @@ import { LayoutGrid } from "@/components/ui/layout-grid";
 
 const windowWidth = window.innerWidth;
 
-export default function Prueba() {
+export default function ModalCreatePost() {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
     setDeshabilitar(true)
-    console.log(acceptedFiles)
   }, [])
   const [deshabilitar, setDeshabilitar] = useState(false);
   const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:4, disabled: deshabilitar})
   const [valor, setValor] = useState("");
+  const [modal, setModal] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValor(event.target.value);
@@ -49,13 +50,28 @@ export default function Prueba() {
     });
   };
 
+  const modalContainer = document.getElementById("modalContainer");
+
+  const handleCreateBtn = () => {
+    setModal(prevState => !prevState)
+  }
   
+  useEffect(() => {
+    if (modalContainer) {
+      modalContainer?.classList.toggle("hidden");
+      modalContainer?.classList.toggle("flex");
+    }
+  }, [modal]);
+
   return (
     <>
-      <div className="w-full h-screen relative flex justify-center items-center bg-background overflow-hidden">
-        <form onSubmit={handleSubmit} className={`w-full lg:w-2/3 lg:max-w-[600px] lg:max-h-[600px] lg:mx-0  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar && windowWidth < 768 ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"}`}>
+      <div id="modalContainer" className="hidden z-10 w-full h-screen absolute inset-0 justify-center items-center overflow-hidden">
+        <div onClick={handleCreateBtn} className="h-screen w-full absolute bg-black bg-opacity-70 inset-0">
+
+        </div>
+        <form onSubmit={handleSubmit} className={`w-full z-50 lg:w-2/3 lg:max-w-[600px] lg:max-h-[600px] lg:mx-0  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar && windowWidth < 768 ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"}`}>
           <div className="relative w-full flex flex-row items-center justify-center">
-            <button className="w-6 h-6 absolute top-5 right-5">
+            <button onClick={handleCreateBtn} className="w-6 h-6 absolute top-5 right-5">
               <Cross1Icon className="w-full h-full"/>
             </button>
             <h3 className="text-2xl font-bold mt-5 mb-3">Crear post</h3>

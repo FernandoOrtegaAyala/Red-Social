@@ -1,4 +1,4 @@
-import { Link } from "@/navigation";
+
 import { AvatarIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
@@ -9,8 +9,6 @@ import NotificationContainer from "@/components/NotificationContainer";
 import PostsButton from "@/components/PostsButton";
 import ReelsButton from "@/components/ReelsButton";
 import SearchContainer from "@/components/SearchContainer";
-import ReelsSVG from "@/components/svg/ReelsSVG";
-import TaggedSVG from "@/components/svg/TaggedSVG";
 import TaggedButton from "@/components/TaggedButton";
 import Toolbar from "@/components/Toolbar";
 

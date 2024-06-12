@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Link } from "@/navigation";
-import { AlignCenterVerticallyIcon } from "@radix-ui/react-icons";
 import ExitButtonToolbar from "./ExitButtonToolbar";
 import HomeButton from "./HomeButton";
 import MessageButton from "./MessageButton";
@@ -9,6 +8,7 @@ import SearchButtonToolbar from "./SearchButtonToolbar";
 import SettingsButton from "./SettingsButton";
 import AvatarSVG from "./svg/AvatarSVG";
 import ThemeButton from "./ThemeButton";
+import CreateBtn from "./CreateBtn";
 
 export default function Toolbar({
   project,
@@ -62,14 +62,7 @@ export default function Toolbar({
             clases="hidden mx-3"
           />
           <MessageButton messages={messages} />
-          <Link
-            href="/configuracion"
-            className="w-6 h-6 mx-3 lg:mx-0 lg:py-2 lg:ml-2 lg:w-full lg:h-auto md:transform md:-rotate-90 lg:rotate-0 lg:flex lg:flex-row lg:items-end lg:justify-start lg:hover:bg-ring lg:hover:text-white lg:hover:rounded-md">
-            <AlignCenterVerticallyIcon className="w-full h-full lg:w-6 lg:h-6" />
-            <span className="hidden lg:inline-block lg:ml-2 lg:text-base">
-              {create}
-            </span>
-          </Link>
+          <CreateBtn create={create}/>
           <SettingsButton settings1={settings1} />
           <Link
             href="/feed/profile"
