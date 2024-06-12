@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 import { Cross1Icon } from "@radix-ui/react-icons";
 
 
-export const LayoutGrid = ({ cards, handleSetObjectURL }: { cards: File[]; handleSetObjectURL: () => void }) => {
+export const LayoutGrid = ({ cards, handleSetObjectURL }: { cards: File[]; handleSetObjectURL: (url: string, revokeUrl: () => void) => void}) => {
   const [selected, setSelected] = useState<File | null>(null);
   const [lastSelected, setLastSelected] = useState<File | null>(null);
 

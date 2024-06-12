@@ -105,5 +105,17 @@
     "message": "Mensaje",
     "noFunctionality": "Sin funcionalidad",
     "demonstrationSection": "Sección demostrativa"
+  },
+  "Create": {
+    "createPost": "Crear publicación",
+    "shareWhatYou": "Comparte lo que sientes",
+    "dragAndDrop": "Arrastra y suelta archivos aquí, o haz clic para seleccionar archivos",
+    "maxImg": "Máximo 4 imágenes",
+    "share": "Compartir",
+    "drop": "Suelta los archivos aquí ...",
+    "discardChanges": "¿Descartar cambios?",
+    "youllNeedReload": "Tendrá que volver a cargar los archivos",
+    "cancel": "Cancelar",
+    "discard": "Descartar"
   }
 }

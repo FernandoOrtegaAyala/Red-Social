@@ -105,5 +105,17 @@
     "message": "Message",
     "noFunctionality": "No functionality",
     "demonstrationSection": "Demonstration section"
+  },
+  "Create": {
+    "createPost": "Create post",
+    "shareWhatYou": "Share what you're feeling",
+    "dragAndDrop": "Drag and drop files here, or click to select files",
+    "maxImg": "Maximum of 4 images",
+    "share": "Share",
+    "drop": "Drop the files here ...",
+    "discardChanges": "Discard changes?",
+    "youllNeedReload": "You'll need to reload the files",
+    "cancel": "Cancel",
+    "discard": "Discard"
   }
 }

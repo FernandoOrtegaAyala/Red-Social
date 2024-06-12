@@ -1,24 +1,51 @@
 "use client"
-
 import { FaPhotoVideo } from "react-icons/fa";
 import { useCallback, useState, ChangeEvent, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
-
 import { Button } from "@/components/ui/button";
 import { LayoutGrid } from "@/components/ui/layout-grid";
 import ModalCancelBtn from "./ModalCancelBtn";
 
 const windowWidth = window.innerWidth;
 
-export default function ModalCreatePost() {
+export default function ModalCreatePost(
+  {
+  createPost,
+  shareWhatYou,
+  dragAndDrop,
+  maxImg,
+  share,
+  drop,
+  discardChanges,
+  youllNeedReload,
+  cancel,
+  discard,
+} : {
+  createPost: string;
+  shareWhatYou: string;
+  dragAndDrop: string;
+  maxImg: string;
+  share: string;
+  drop: string;
+  discardChanges: string;
+  youllNeedReload: string;
+  cancel: string;
+  discard: string;
+}) {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
-    setDeshabilitar(true)
+    if (acceptedFiles.length >= 1) {
+      setDeshabilitar(true)
+      setOnDropError(false)
+    } else {
+      setOnDropError(true)
+    }
   }, [])
   const [deshabilitar, setDeshabilitar] = useState(false);
   const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:4, disabled: deshabilitar})
   const [valor, setValor] = useState("");
   const [modal, setModal] = useState(false)
+  const [onDropError, setOnDropError] = useState(false)
   const [objectURLs, setObjectURLs] = useState<{ url: string, revoke: () => void }[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -53,6 +80,7 @@ export default function ModalCreatePost() {
   };
 
   const modalContainerRef = useRef<HTMLDivElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSetObjectURL = useCallback((url: string, revokeUrl: () => void) => {
     setObjectURLs((prev) => [...prev, { url, revoke: revokeUrl }]);
@@ -64,7 +92,18 @@ export default function ModalCreatePost() {
     setModal(prevstate => !prevstate)
     acceptedFiles.splice(0, acceptedFiles.length)
     setDeshabilitar(false)
+    setOnDropError(false)
+    setValor("")
+    clearTextArea()
+
   };
+
+  const clearTextArea = () => {
+  if (textAreaRef.current !== null && textAreaRef.current !== undefined) {
+    textAreaRef.current.value = "";
+  }
+};
+
 
   useEffect(() => {
     if (modalContainerRef.current) {
@@ -75,14 +114,20 @@ export default function ModalCreatePost() {
 
   return (
     <>
-      <div id="modalContainer" ref={modalContainerRef} className="hidden z-10 w-full h-screen absolute inset-0 justify-center items-center overflow-hidden">
+      <div id="modalContainer" ref={modalContainerRef} className="hidden z-[60] w-full h-screen absolute inset-0 justify-center items-center overflow-hidden">
         <div onClick={handleRemoveAllURLs} className="h-screen w-full absolute bg-black bg-opacity-70 inset-0">
 
         </div>
-        <form onSubmit={handleSubmit} className={`w-full z-50 lg:w-2/3 lg:max-w-[600px] lg:max-h-[600px] lg:mx-0  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar && windowWidth < 768 ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"}`}>
+        <form onSubmit={handleSubmit} className={`w-full z-50 lg:w-2/3 lg:max-w-[600px] lg:max-h-[600px] lg:mx-0  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar && windowWidth < 768 ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"} ${onDropError || valor.length > 500 ? "border-red-800 border-2": "" }`}>
           <div className="relative w-full flex flex-row items-center justify-center">
-            <ModalCancelBtn handleRemoveAllURLs={handleRemoveAllURLs}/>
-            <h3 className="text-2xl font-bold mt-5 mb-3">Crear post</h3>
+            <ModalCancelBtn 
+            handleRemoveAllURLs={handleRemoveAllURLs}
+            discardChanges={discardChanges}
+            youllNeedReload={youllNeedReload}
+            cancel={cancel}
+            discard={discard}
+            />
+            <h3 className="text-2xl font-bold mt-5 mb-3">{createPost}</h3>
           </div>
           <div
             className={`p-4 md:px4 md:pt-0 flex relative pb-5 flex-row w-full bg-card ring-offset-background ${
@@ -92,15 +137,16 @@ export default function ModalCreatePost() {
             } disabled:cursor-not-allowed disabled:opacity-50`}>
             <textarea
               className="h-20 md:h-28 py-2 md:pt-6 w-full resize-none placeholder:text-muted-foreground text-lg font-medium md:text-xl lg:text-lg bg-transparent border-transparent focus:outline-none"
-              id="biografía"
-              placeholder="Comparte lo que sientes"
+              id="post"
+              ref={textAreaRef}
+              placeholder={shareWhatYou}
               onChange={handleChange}
             />
             <div
               className={`flex items-end text-xs md:text-base ${
                 valor.length > 500 ? "text-red-600" : ""
               }`}>
-              <span className="absolute right-2 bottom-0">{valor.length}/500</span>
+              <span className="absolute right-2 md:right-4 bottom-0">{valor.length}/500</span>
             </div>
           </div>
           <div className={`bg-card w-full h-full flex flex-col items-center justify-center hover:cursor-pointer ${deshabilitar ? "dropzone disabled" : "px-4"}`} {...getRootProps()}>
@@ -111,18 +157,18 @@ export default function ModalCreatePost() {
             {
               !isDragActive ? (
                 !deshabilitar ? (<div className="flex flex-col">
-                  <p className="text-center">Drag and drop files here, or click to select files.</p>
-                  <p className="text-center">4 imagenes maximo</p>
+                  <p className="text-center">{dragAndDrop}</p>
+                  <p className={`${onDropError ? "text-red-800 text-xl font-bold" : ""} text-center`}>{maxImg}</p>
                 </div>): ""
               ): (
-                <p>Drop the files here ...</p>
+                <p>{drop}</p>
               )
             }
             {deshabilitar ? (
               <LayoutGrid cards={acceptedFiles} handleSetObjectURL={handleSetObjectURL} />
             ) : ""}
           </div>
-          <Button className={`text-xl font-semibold lg:mb-6 ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>Compartir</Button>
+          <Button disabled={onDropError || valor.length > 500 || !valor ? true : false} className={`text-xl font-semibold lg:mb-6 ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>{share}</Button>
         </form>
       </div>
     </>

@@ -27,7 +27,7 @@ export default function ExitButtonToolbar(params: { locale: "es" | "en" }) {
             {t("logOut1")}
           </span>
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className="z-[400]">
           <AlertDialogHeader>
             <AlertDialogTitle>{t("logOutConfirm")}</AlertDialogTitle>
             <AlertDialogDescription>
