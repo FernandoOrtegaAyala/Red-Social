@@ -5,6 +5,8 @@ import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { LayoutGrid } from "@/components/ui/layout-grid";
 import ModalCancelBtn from "./ModalCancelBtn";
+import { LuLoader2 } from "react-icons/lu";
+import LoadingComponent from "./LoadingComponent";
 
 const windowWidth = window.innerWidth;
 
@@ -20,6 +22,7 @@ export default function ModalCreatePost(
   youllNeedReload,
   cancel,
   discard,
+  uploading,
 } : {
   createPost: string;
   shareWhatYou: string;
@@ -31,6 +34,7 @@ export default function ModalCreatePost(
   youllNeedReload: string;
   cancel: string;
   discard: string;
+  uploading: string;
 }) {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
@@ -43,6 +47,7 @@ export default function ModalCreatePost(
   }, [])
   const [deshabilitar, setDeshabilitar] = useState(false);
   const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:4, disabled: deshabilitar})
+  const [subiendo, setSubiendo] = useState(false);
   const [valor, setValor] = useState("");
   const [modal, setModal] = useState(false)
   const [onDropError, setOnDropError] = useState(false)
@@ -62,10 +67,12 @@ export default function ModalCreatePost(
       formData.append("api_key", process.env.API_KEY);
 
       try {
+        setSubiendo(true)
         const res = await fetch("https://api.cloudinary.com/v1_1/duan4ka5v/image/upload", {
           method: "POST",
           body: formData,
         });
+        
 
         if (!res.ok) {
           throw new Error("Error en la solicitud de carga");
@@ -73,6 +80,9 @@ export default function ModalCreatePost(
 
         const data = await res.json();
         console.log(data);
+        handleRemoveAllURLs()
+        postCreado()
+        setSubiendo(false)
       } catch (error) {
         console.error("Error al cargar el archivo:", error);
       }
@@ -81,6 +91,7 @@ export default function ModalCreatePost(
 
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const modalUploadedRef = document.getElementById("modalUploaded");
 
   const handleSetObjectURL = useCallback((url: string, revokeUrl: () => void) => {
     setObjectURLs((prev) => [...prev, { url, revoke: revokeUrl }]);
@@ -103,6 +114,13 @@ export default function ModalCreatePost(
     textAreaRef.current.value = "";
   }
 };
+
+  const postCreado = () => {
+    if (modalUploadedRef) {
+      modalUploadedRef.classList.toggle("hidden")
+      modalUploadedRef.classList.toggle("flex")
+    }
+  }
 
 
   useEffect(() => {
@@ -168,7 +186,7 @@ export default function ModalCreatePost(
               <LayoutGrid cards={acceptedFiles} handleSetObjectURL={handleSetObjectURL} />
             ) : ""}
           </div>
-          <Button disabled={onDropError || valor.length > 500 || !valor ? true : false} className={`text-xl font-semibold lg:mb-6 ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>{share}</Button>
+          <Button disabled={onDropError || subiendo || valor.length > 500 || !valor ? true : false} className={`text-xl font-semibold lg:mb-6 ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>{subiendo ? <LoadingComponent uploading={uploading}/> :  share}</Button>
         </form>
       </div>
     </>

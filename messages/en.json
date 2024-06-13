@@ -116,6 +116,9 @@
     "discardChanges": "Discard changes?",
     "youllNeedReload": "You'll need to reload the files",
     "cancel": "Cancel",
-    "discard": "Discard"
+    "discard": "Discard",
+    "created": "Post created",
+    "accept": "Accept",
+    "uploading": "Uploading..."
   }
 }

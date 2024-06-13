@@ -116,6 +116,9 @@
     "discardChanges": "¿Descartar cambios?",
     "youllNeedReload": "Tendrá que volver a cargar los archivos",
     "cancel": "Cancelar",
-    "discard": "Descartar"
+    "discard": "Descartar",
+    "created": "Publicación creada",
+    "accept": "Aceptar",
+    "uploading": "Subiendo..."
   }
 }
