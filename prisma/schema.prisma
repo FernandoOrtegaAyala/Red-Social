@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,11 +7,93 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  username String @unique
-  password String
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+model comentarios {
+  id_comentario    Int       @id @default(autoincrement())
+  id_post          Int?
+  id_usuario       Int?
+  fecha_comentario DateTime? @default(now()) @db.DateTime(0)
+  texto            String    @db.Text
+  imagen_url       String?   @db.VarChar(255)
+  usuarios         usuarios? @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "comentarios_ibfk_1")
+  posts            posts?    @relation(fields: [id_post], references: [id_post], onDelete: NoAction, onUpdate: NoAction, map: "comentarios_ibfk_2")
+
+  @@index([id_post], map: "id_post")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model likes {
+  id_like    Int       @id @default(autoincrement())
+  id_post    Int?
+  id_usuario Int?
+  fecha_like DateTime? @default(now()) @db.DateTime(0)
+  usuarios   usuarios? @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "likes_ibfk_1")
+  posts      posts?    @relation(fields: [id_post], references: [id_post], onDelete: NoAction, onUpdate: NoAction, map: "likes_ibfk_2")
+
+  @@index([id_post], map: "id_post")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model paises {
+  id_pais     Int        @id @default(autoincrement())
+  nombre_pais String     @db.VarChar(45)
+  usuarios    usuarios[]
+}
+
+model posts {
+  id_post          Int           @id @default(autoincrement())
+  id_usuario       Int?
+  fecha_pubicacion DateTime?     @default(now()) @db.DateTime(0)
+  texto            String?       @db.Text
+  imagen1_url      String?       @db.VarChar(255)
+  imagen2_url      String?       @db.VarChar(255)
+  imagen3_url      String?       @db.VarChar(255)
+  comentarios      comentarios[]
+  likes            likes[]
+  usuarios         usuarios?     @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "posts_ibfk_1")
+
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model seguidores {
+  id_seguidor                                       Int       @id @default(autoincrement())
+  fecha_seguimiento                                 DateTime? @default(now()) @db.DateTime(0)
+  id_usuario_seguidor                               Int?
+  id_usuario_seguido                                Int?
+  usuarios_seguidores_id_usuario_seguidorTousuarios usuarios? @relation("seguidores_id_usuario_seguidorTousuarios", fields: [id_usuario_seguidor], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "seguidores_ibfk_1")
+  usuarios_seguidores_id_usuario_seguidoTousuarios  usuarios? @relation("seguidores_id_usuario_seguidoTousuarios", fields: [id_usuario_seguido], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "seguidores_ibfk_2")
+
+  @@index([id_usuario_seguido], map: "id_usuario_seguido")
+  @@index([id_usuario_seguidor], map: "id_usuario_seguidor")
+}
+
+model usuarios {
+  id_usuario                                          Int              @id @default(autoincrement())
+  nombre_usuario                                      String           @unique(map: "nombre_usuario") @db.VarChar(30)
+  nombre                                              String           @db.VarChar(50)
+  apellidos                                           String           @db.VarChar(55)
+  es_administrador                                    Boolean?         @default(false)
+  fecha_registro                                      DateTime?        @default(now()) @db.DateTime(0)
+  email                                               String           @unique(map: "email") @db.VarChar(45)
+  password                                            String           @db.VarChar(45)
+  avatar                                              String?          @db.VarChar(255)
+  bio                                                 String?          @default("Sin biografía") @db.VarChar(150)
+  genero                                              usuarios_genero?
+  cumpleanos                                          DateTime?        @db.Date
+  id_pais                                             Int?
+  comentarios                                         comentarios[]
+  likes                                               likes[]
+  posts                                               posts[]
+  seguidores_seguidores_id_usuario_seguidorTousuarios seguidores[]     @relation("seguidores_id_usuario_seguidorTousuarios")
+  seguidores_seguidores_id_usuario_seguidoTousuarios  seguidores[]     @relation("seguidores_id_usuario_seguidoTousuarios")
+  paises                                              paises?          @relation(fields: [id_pais], references: [id_pais], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_ibfk_1")
+
+  @@index([id_pais], map: "id_pais")
+}
+
+enum usuarios_genero {
+  Masculino
+  Femenino
+  Prefiero_no_especificar @map("Prefiero no especificar")
+  No_binario              @map("No binario")
+  Otro
 }

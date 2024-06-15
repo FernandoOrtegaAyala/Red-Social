@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Label } from "@radix-ui/react-label";
 import { useForm } from "react-hook-form";
 
@@ -12,6 +13,7 @@ export default function PruebaReg() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
 
   const onSubmit = handleSubmit(async (data) => {
     if (data.password !== data.confirmPassword) {
@@ -29,11 +31,11 @@ export default function PruebaReg() {
         "Content-Type": "application/json",
       },
     });
-    const resJSON = await res.json();
-    console.log(resJSON);
-  });
 
-  console.log(errors);
+    if (res.ok) {
+      router.push("/");
+    }
+  });
 
   return (
     <>

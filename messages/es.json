@@ -1,7 +1,7 @@
 {
   "Home": {
     "projectName": "Proyecto | Red Social",
-    "loginCardHeader": "Click al icono de Github para acceder como invitado",
+    "loginCardHeader": "Click icono invitado para acceder con una cuenta demo",
     "login": "Iniciar sesión",
     "email": "Correo",
     "emailExample": "ejemplo@correo.com",
@@ -9,8 +9,8 @@
     "recoverPassword": "Recuperar contraseña",
     "signIn": "Iniciar sesión",
     "signUp": "Crear cuenta",
-    "signUpAlternative": "O registrarse con",
-    "gitIcon": "Invitado",
+    "signUpAlternative": "O entrar con una cuenta demo",
+    "guest": "Invitado",
     "privacyPolicy": "Política de Privacidad",
     "createdBy": "Creado por",
     "home": "Volver a inicio"
@@ -53,7 +53,17 @@
     "november": "Noviembre",
     "december": "Diciembre",
     "day": "Día",
-    "alreadyHaveAccount": "Ya tengo una cuenta"
+    "alreadyHaveAccount": "Ya tengo una cuenta",
+    "requiredName": "Nombre es requerido",
+    "requiredLastName": "Apellidos son requeridos",
+    "requiredUsername": "Nombre de usuario es requerido",
+    "requiredEmail": "Email es requerido",
+    "requiredFormatEmail": "Ingrese un email válido",
+    "requiredPassword": "Contraseña es requerida",
+    "requiredConfirmPassword": "Confirmar contraseña es requerida",
+    "requiredYear": "Seleccione un año",
+    "requiredMonth": "Seleccione un mes",
+    "requiredDay": "Seleccione un día"
   },
   "Feed": {
     "viewAll": "Ver todos los",

@@ -1,7 +1,7 @@
 {
   "Home": {
     "projectName": "Project | Social Network",
-    "loginCardHeader": "Click on the GitHub icon to access as a guest",
+    "loginCardHeader": "Click the guest icon to access with a demo account",
     "login": "Login",
     "email": "Email",
     "emailExample": "email@example.com",
@@ -9,8 +9,8 @@
     "recoverPassword": "Forgot password?",
     "signIn": "Sign in",
     "signUp": "Sign up",
-    "signUpAlternative": "Or register with",
-    "gitIcon": "Guest",
+    "signUpAlternative": "Or log in with a demo account",
+    "guest": "Guest",
     "privacyPolicy": "Privacy Policy",
     "createdBy": "Created by",
     "home": "Return to homepage"
@@ -53,7 +53,17 @@
     "november": "November",
     "december": "December",
     "day": "Day",
-    "alreadyHaveAccount": "I already have an account"
+    "alreadyHaveAccount": "I already have an account",
+    "requiredName": "First name is required",
+    "requiredLastName": "Last name is required",
+    "requiredUsername": "Username is required",
+    "requiredEmail": "Email is required",
+    "requiredFormatEmail": "Enter a valid emai",
+    "requiredPassword": "Password is required",
+    "requiredConfirmPassword": "Confirm password is required",
+    "requiredYear": "Select a year",
+    "requiredMonth": "Select a month",
+    "requiredDay": "Select a day"
   },
   "Feed": {
     "viewAll": "View all",

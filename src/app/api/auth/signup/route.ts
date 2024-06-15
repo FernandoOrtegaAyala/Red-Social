@@ -52,5 +52,14 @@ export async function POST(request) {
     const { password: _, ...user } = newUser;
 
     return NextResponse.json(user);
-  } catch (error) {}
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
+  }
 }

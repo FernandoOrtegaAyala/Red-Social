@@ -1,5 +1,6 @@
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
+import { RiShieldUserFill } from "react-icons/ri";
 
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -11,7 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -60,14 +60,12 @@ export default function FormInicio() {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-6">
-          <Button variant="outline">
-            <Icons.gitHub className="mr-2 h-4 w-4" />
-            {t("gitIcon")}
-          </Button>
-          <Button variant="outline">
-            <Icons.google className="mr-2 h-4 w-4" />
-            Google
+        <div className="flex items-center justify-center">
+          <Button
+            className="flex items-center justify-center gap-2"
+            variant="outline">
+            <RiShieldUserFill className="h-6 w-6" />
+            {t("guest")}
           </Button>
         </div>
       </CardContent>
