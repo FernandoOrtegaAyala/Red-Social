@@ -102,7 +102,7 @@ export default function FormCrearCuenta({
   const {
     register,
     handleSubmit,
-    watch,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -111,16 +111,9 @@ export default function FormCrearCuenta({
       return alert("Las contraseñas no coinciden");
     }
 
-    console.log(data);
+    console.log(getValues());
   });
-
-  const selectedMes = watch("mes");
-  const selectedAñO = watch("anio");
-  const selectedDia = watch("dia");
-  console.log("Valor Mes:", selectedMes);
-  console.log("Valor Año:", selectedAñO);
-  console.log("Valor Día:", selectedDia);
-
+  console.log(getValues());
   return (
     <Card className="">
       <form onSubmit={onSubmit} noValidate>
