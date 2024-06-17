@@ -1,4 +1,12 @@
-import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+"use client";
+
+import { useRef } from "react";
+import {
+  FieldErrors,
+  FieldValues,
+  UseFormRegister,
+  UseFormSetValue,
+} from "react-hook-form";
 
 import { Label } from "@/components/ui/label";
 import {
@@ -27,6 +35,7 @@ export default function SelectsNacimiento({
   december,
   day,
   register,
+  setValue,
   errors,
   requiredYear,
   requiredMonth,
@@ -52,89 +61,94 @@ export default function SelectsNacimiento({
   requiredMonth: string;
   requiredDay: string;
   register: UseFormRegister<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
   errors: FieldErrors<FieldValues>;
 }) {
+  const mesRef = useRef<HTMLInputElement>(null);
+
+  const handleMonthChange = () => {
+    // Acceder al valor solo si la referencia tiene un valor
+    if (mesRef.current) {
+      console.log(mesRef.current.textContent);
+    }
+  };
+
   return (
     <>
       <Label htmlFor="año">{birthday}</Label>
-      <div className="flex flex-col">
-        {errors.anio && (
-          <span className="text-red-600">{errors.anio.message}</span>
-        )}
-        {errors.mes && (
-          <span className="text-red-600">{errors.mes.message}</span>
-        )}
-        {errors.dia && (
-          <span className="text-red-600">{errors.dia.message}</span>
-        )}
-      </div>
-      <div className="grid grid-cols-3 gap-4">
+      {errors.año && <span className="text-red-600">{errors.año.message}</span>}
+      {errors.mes && <span className="text-red-600">{errors.mes.message}</span>}
+      {errors.dia && <span className="text-red-600">{errors.dia.message}</span>}
+      <div className="flex items-center justify-between">
         <div className="flex justify-center items-center">
-          <Select
-            {...register("anio", {
+          <select
+            className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-2 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
+            {...register("año", {
               required: {
                 value: true,
                 message: requiredYear,
               },
             })}>
-            <SelectTrigger>
-              <SelectValue placeholder={year} />
-            </SelectTrigger>
-            <SelectContent>
-              {Array.from({ length: 2008 - 1960 + 1 }, (_, i) => (
-                <SelectItem key={i} value={`${2008 - i}`}>
-                  {2008 - i}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            <option
+              value=""
+              className="disabled selected hidden text-muted-foreground">
+              {year}
+            </option>
+            {Array.from({ length: 2008 - 1960 + 1 }, (_, i) => (
+              <option key={i} value={`${2008 - i}`}>
+                {2008 - i}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="flex justify-center items-center">
-          <Select
+          <select
+            className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-2 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
             {...register("mes", {
               required: {
                 value: true,
                 message: requiredMonth,
               },
             })}>
-            <SelectTrigger>
-              <SelectValue placeholder={month} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="1">{january}</SelectItem>
-              <SelectItem value="2">{february}</SelectItem>
-              <SelectItem value="3">{march}</SelectItem>
-              <SelectItem value="4">{april}</SelectItem>
-              <SelectItem value="5">{may}</SelectItem>
-              <SelectItem value="6">{june}</SelectItem>
-              <SelectItem value="7">{july}</SelectItem>
-              <SelectItem value="8">{august}</SelectItem>
-              <SelectItem value="9">{september}</SelectItem>
-              <SelectItem value="10">{october}</SelectItem>
-              <SelectItem value="11">{november}</SelectItem>
-              <SelectItem value="12">{december}</SelectItem>
-            </SelectContent>
-          </Select>
+            <option value="" className="disabled selected hidden">
+              {month}
+            </option>
+            <option value="01">{january}</option>
+            <option value="02">{february}</option>
+            <option value="03">{march}</option>
+            <option value="04">{april}</option>
+            <option value="05">{may}</option>
+            <option value="06">{june}</option>
+            <option value="07">{july}</option>
+            <option value="08">{august}</option>
+            <option value="09">{september}</option>
+            <option value="10">{october}</option>
+            <option value="11">{november}</option>
+            <option value="12">{december}</option>
+          </select>
         </div>
         <div className="flex justify-center items-center">
-          <Select
+          <select
+            className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-2 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"
             {...register("dia", {
               required: {
                 value: true,
                 message: requiredDay,
               },
-            })}>
-            <SelectTrigger>
-              <SelectValue placeholder={day} />
-            </SelectTrigger>
-            <SelectContent>
-              {Array.from({ length: 31 }, (_, i) => (
-                <SelectItem key={i} value={`${1 + i}`}>
-                  {1 + i}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            })}
+            className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-2 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1">
+            <option value="" className="disabled selected hidden">
+              {day}
+            </option>
+            {Array.from({ length: 31 }, (_, i) => {
+              const day = (i + 1).toString().padStart(2, "0");
+              return (
+                <option key={i} value={day}>
+                  {day}
+                </option>
+              );
+            })}
+          </select>
         </div>
       </div>
     </>

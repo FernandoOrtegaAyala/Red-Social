@@ -63,7 +63,10 @@
     "requiredConfirmPassword": "Confirm password is required",
     "requiredYear": "Select a year",
     "requiredMonth": "Select a month",
-    "requiredDay": "Select a day"
+    "requiredDay": "Select a day",
+    "passwordsDontMatch": "Passwords do not match",
+    "userAlreadyExists": "User already exists",
+    "emailAlreadyExists": "This email is already registered"
   },
   "Feed": {
     "viewAll": "View all",

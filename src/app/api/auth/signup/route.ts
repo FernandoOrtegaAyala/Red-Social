@@ -7,9 +7,9 @@ export async function POST(request) {
   try {
     const data = await request.json();
 
-    const userFound = await db.user.findUnique({
+    const userFound = await db.usuarios.findUnique({
       where: {
-        username: data.username,
+        nombre_usuario: data.nombre_usuario,
       },
     });
 
@@ -19,11 +19,11 @@ export async function POST(request) {
           message: "El usuario ya existe",
         },
         {
-          status: 400,
+          status: 422,
         }
       );
     }
-    const emailFound = await db.user.findUnique({
+    const emailFound = await db.usuarios.findUnique({
       where: {
         email: data.email,
       },
@@ -35,23 +35,32 @@ export async function POST(request) {
           message: "El email ya existe",
         },
         {
-          status: 400,
+          status: 409,
         }
       );
     }
-    console.log(data);
     const hashedPassword = await bcryptjs.hash(data.password, 10);
-    const newUser = await db.user.create({
+    const newUser = await db.usuarios.create({
       data: {
-        username: data.username,
+        nombre_usuario: data.nombre_usuario,
+        nombre: data.nombre,
+        apellidos: data.apellidos,
         email: data.email,
         password: hashedPassword,
+        cumpleanos: data.cumpleanos,
       },
     });
 
     const { password: _, ...user } = newUser;
 
-    return NextResponse.json(user);
+    return NextResponse.json(
+      {
+        message: "Usuario creado exitosamente",
+      },
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
     return NextResponse.json(
       {

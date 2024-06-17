@@ -59,6 +59,9 @@ export default function Registro(params: { locale: "es" | "en" }) {
           requiredYear={t("requiredYear")}
           requiredMonth={t("requiredMonth")}
           requiredDay={t("requiredDay")}
+          passwordsDontMatch={t("passwordsDontMatch")}
+          userAlreadyExists={t("userAlreadyExists")}
+          emailAlreadyExists={t("emailAlreadyExists")}
         />
         <FooterComp politica="" paddingTop="pt-0" />
       </div>

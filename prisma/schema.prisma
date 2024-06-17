@@ -74,7 +74,7 @@ model usuarios {
   es_administrador                                    Boolean?         @default(false)
   fecha_registro                                      DateTime?        @default(now()) @db.DateTime(0)
   email                                               String           @unique(map: "email") @db.VarChar(45)
-  password                                            String           @db.VarChar(45)
+  password                                            String           @db.VarChar(255)
   avatar                                              String?          @db.VarChar(255)
   bio                                                 String?          @default("Sin biografía") @db.VarChar(150)
   genero                                              usuarios_genero?

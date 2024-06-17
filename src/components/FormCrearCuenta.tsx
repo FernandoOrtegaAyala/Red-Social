@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Link } from "@/navigation";
 import { useForm } from "react-hook-form";
 import { RiShieldUserFill } from "react-icons/ri";
@@ -21,6 +22,8 @@ import InputPassword from "./InputPassword";
 import SelectsNacimiento from "./SelectsNacimiento";
 
 export default function FormCrearCuenta({
+  emailAlreadyExists,
+  userAlreadyExists,
   signUp,
   firstName,
   lastName,
@@ -59,7 +62,10 @@ export default function FormCrearCuenta({
   requiredYear,
   requiredMonth,
   requiredDay,
+  passwordsDontMatch,
 }: {
+  emailAlreadyExists: string;
+  userAlreadyExists: string;
   signUp: string;
   firstName: string;
   lastName: string;
@@ -98,22 +104,55 @@ export default function FormCrearCuenta({
   requiredYear: string;
   requiredMonth: string;
   requiredDay: string;
+  passwordsDontMatch: string;
 }) {
   const {
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = handleSubmit(async (data) => {
-    if (data.password !== data.confirmPassword) {
-      return alert("Las contraseñas no coinciden");
-    }
+  const [passwordsDiferentes, setPasswordsDiferentes] = useState(false);
+  const [userExists, setUserExists] = useState(false);
+  const [emailExists, setEmailExists] = useState(false);
 
-    console.log(getValues());
+  const onSubmit = handleSubmit(async (data) => {
+    if (data.password !== data.confirmarContraseña) {
+      setPasswordsDiferentes(true);
+    }
+    setPasswordsDiferentes(false);
+    const formattedDateString = `${data.año}-${data.mes}-${data.dia}`;
+    const formattedDate = new Date(formattedDateString).toISOString();
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        nombre_usuario: data.nombre_usuario,
+        nombre: data.nombre,
+        apellidos: data.apellidos,
+        email: data.email,
+        password: data.password,
+        cumpleanos: formattedDate,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const resJson = await res.json();
+    console.log(resJson);
+    if (res.status == 422) {
+      setUserExists(true);
+    } else {
+      setUserExists(false);
+    }
+    if (res.status == 409) {
+      setEmailExists(true);
+    } else {
+      setEmailExists(false);
+    }
   });
-  console.log(getValues());
   return (
     <Card className="">
       <form onSubmit={onSubmit} noValidate>
@@ -163,6 +202,9 @@ export default function FormCrearCuenta({
                 {errors.nombre_usuario.message}
               </span>
             )}
+            {userExists ? (
+              <span className="text-red-600">{userAlreadyExists}</span>
+            ) : null}
             <Label htmlFor="nombre_usuario">{userName}</Label>
             <Input
               type="text"
@@ -176,6 +218,9 @@ export default function FormCrearCuenta({
             />
           </div>
           <div className="grid gap-2">
+            {emailExists && (
+              <span className="text-red-600">{emailAlreadyExists}</span>
+            )}
             {errors.email && (
               <span className="text-red-600">{errors.email.message}</span>
             )}
@@ -195,6 +240,9 @@ export default function FormCrearCuenta({
               })}
             />
           </div>
+          {passwordsDiferentes && (
+            <span className="text-red-600">{passwordsDontMatch}</span>
+          )}
           <InputPassword
             txt={password}
             htmlForTxt="password"
@@ -210,6 +258,7 @@ export default function FormCrearCuenta({
             mensaje={requiredConfirmPassword}
           />
           <SelectsNacimiento
+            setValue={setValue}
             birthday={birthday}
             year={year}
             month={month}

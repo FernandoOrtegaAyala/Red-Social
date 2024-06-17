@@ -63,7 +63,10 @@
     "requiredConfirmPassword": "Confirmar contraseña es requerida",
     "requiredYear": "Seleccione un año",
     "requiredMonth": "Seleccione un mes",
-    "requiredDay": "Seleccione un día"
+    "requiredDay": "Seleccione un día",
+    "passwordsDontMatch": "Las contraseñas no coinciden",
+    "userAlreadyExists": "El usuario ya existe",
+    "emailAlreadyExists": "Este correo ya se encuentra registrado"
   },
   "Feed": {
     "viewAll": "Ver todos los",
