@@ -11,7 +11,7 @@ export default function FooterComp({
 }) {
   const t = useTranslations("Home");
   return (
-    <>
+    <div className="bg-background flex flex-col gap-5">
       <p
         className={` ${politica} px-8 text-center text-sm text-muted-foreground`}>
         <Link
@@ -32,6 +32,6 @@ export default function FooterComp({
           {`  />`}
         </h6>
       </footer>
-    </>
+    </div>
   );
 }

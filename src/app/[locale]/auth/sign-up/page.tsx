@@ -11,7 +11,7 @@ export default function Registro(params: { locale: "es" | "en" }) {
   const t = useTranslations("Form");
   const t2 = useTranslations("Home");
   return (
-    <div className="w-full h-auto relative px-5 pb-5 lg:pb-0 flex items-center justify-center lg:max-w-none">
+    <div className="w-full h-full bg-background lg:max-w-none flex items-center px-5 pt-20 md:px-0 justify-center md:pt-32 lg:pt-14">
       <ThemeButtonSwitchAndLanguage />
       <LogoNombre
         posicion="absolute left-3 md:left-4 top-5 md:top-6"
@@ -19,8 +19,10 @@ export default function Registro(params: { locale: "es" | "en" }) {
         referencia="/"
         texto={t2("projectName")}
       />
-      <div className="pt-20 lg:pt-10 mx-auto flex w-full flex-col justify-center pt space-y-6 sm:w-[350px]">
+      <div className="h-full w-full flex flex-col gap-5 sm:w-[350px]">
         <FormCrearCuenta
+          accountCreated={t("accountCreated")}
+          goToLogin={t("goToLogin")}
           signUp={t2("signUp")}
           firstName={t("firstName")}
           lastName={t("lastName")}
@@ -62,6 +64,7 @@ export default function Registro(params: { locale: "es" | "en" }) {
           passwordsDontMatch={t("passwordsDontMatch")}
           userAlreadyExists={t("userAlreadyExists")}
           emailAlreadyExists={t("emailAlreadyExists")}
+          creatingAccount={t("creatingAccount")}
         />
         <FooterComp politica="" paddingTop="pt-0" />
       </div>

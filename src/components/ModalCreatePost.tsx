@@ -1,17 +1,18 @@
-"use client"
-import { FaPhotoVideo } from "react-icons/fa";
-import { useCallback, useState, ChangeEvent, useEffect, useRef } from "react";
+"use client";
+
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { FaPhotoVideo } from "react-icons/fa";
+
 import { Button } from "@/components/ui/button";
 import { LayoutGrid } from "@/components/ui/layout-grid";
-import ModalCancelBtn from "./ModalCancelBtn";
-import { LuLoader2 } from "react-icons/lu";
+
 import LoadingComponent from "./LoadingComponent";
+import ModalCancelBtn from "./ModalCancelBtn";
 
 const windowWidth = window.innerWidth;
 
-export default function ModalCreatePost(
-  {
+export default function ModalCreatePost({
   createPost,
   shareWhatYou,
   dragAndDrop,
@@ -23,7 +24,7 @@ export default function ModalCreatePost(
   cancel,
   discard,
   uploading,
-} : {
+}: {
   createPost: string;
   shareWhatYou: string;
   dragAndDrop: string;
@@ -36,27 +37,30 @@ export default function ModalCreatePost(
   discard: string;
   uploading: string;
 }) {
-  const onDrop = useCallback(acceptedFiles => {
+  const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
     if (acceptedFiles.length >= 1) {
-      setDeshabilitar(true)
-      setOnDropError(false)
+      setDeshabilitar(true);
+      setOnDropError(false);
     } else {
-      setOnDropError(true)
+      setOnDropError(true);
     }
-  }, [])
+  }, []);
   const [deshabilitar, setDeshabilitar] = useState(false);
-  const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop, maxFiles:4, disabled: deshabilitar})
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
+    useDropzone({ onDrop, maxFiles: 4, disabled: deshabilitar });
   const [subiendo, setSubiendo] = useState(false);
   const [valor, setValor] = useState("");
-  const [modal, setModal] = useState(false)
-  const [onDropError, setOnDropError] = useState(false)
-  const [objectURLs, setObjectURLs] = useState<{ url: string, revoke: () => void }[]>([]);
+  const [modal, setModal] = useState(false);
+  const [onDropError, setOnDropError] = useState(false);
+  const [objectURLs, setObjectURLs] = useState<
+    { url: string; revoke: () => void }[]
+  >([]);
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValor(event.target.value);
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -67,12 +71,14 @@ export default function ModalCreatePost(
       formData.append("api_key", process.env.API_KEY);
 
       try {
-        setSubiendo(true)
-        const res = await fetch("https://api.cloudinary.com/v1_1/duan4ka5v/image/upload", {
-          method: "POST",
-          body: formData,
-        });
-        
+        setSubiendo(true);
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/duan4ka5v/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         if (!res.ok) {
           throw new Error("Error en la solicitud de carga");
@@ -80,9 +86,9 @@ export default function ModalCreatePost(
 
         const data = await res.json();
         console.log(data);
-        handleRemoveAllURLs()
-        postCreado()
-        setSubiendo(false)
+        handleRemoveAllURLs();
+        postCreado();
+        setSubiendo(false);
       } catch (error) {
         console.error("Error al cargar el archivo:", error);
       }
@@ -93,35 +99,36 @@ export default function ModalCreatePost(
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const modalUploadedRef = document.getElementById("modalUploaded");
 
-  const handleSetObjectURL = useCallback((url: string, revokeUrl: () => void) => {
-    setObjectURLs((prev) => [...prev, { url, revoke: revokeUrl }]);
-  }, []);
+  const handleSetObjectURL = useCallback(
+    (url: string, revokeUrl: () => void) => {
+      setObjectURLs((prev) => [...prev, { url, revoke: revokeUrl }]);
+    },
+    []
+  );
 
   const handleRemoveAllURLs = () => {
-    objectURLs.forEach(item => item.revoke());
+    objectURLs.forEach((item) => item.revoke());
     setObjectURLs([]);
-    setModal(prevstate => !prevstate)
-    acceptedFiles.splice(0, acceptedFiles.length)
-    setDeshabilitar(false)
-    setOnDropError(false)
-    setValor("")
-    clearTextArea()
-
+    setModal((prevstate) => !prevstate);
+    acceptedFiles.splice(0, acceptedFiles.length);
+    setDeshabilitar(false);
+    setOnDropError(false);
+    setValor("");
+    clearTextArea();
   };
 
   const clearTextArea = () => {
-  if (textAreaRef.current !== null && textAreaRef.current !== undefined) {
-    textAreaRef.current.value = "";
-  }
-};
+    if (textAreaRef.current !== null && textAreaRef.current !== undefined) {
+      textAreaRef.current.value = "";
+    }
+  };
 
   const postCreado = () => {
     if (modalUploadedRef) {
-      modalUploadedRef.classList.toggle("hidden")
-      modalUploadedRef.classList.toggle("flex")
+      modalUploadedRef.classList.toggle("hidden");
+      modalUploadedRef.classList.toggle("flex");
     }
-  }
-
+  };
 
   useEffect(() => {
     if (modalContainerRef.current) {
@@ -132,18 +139,23 @@ export default function ModalCreatePost(
 
   return (
     <>
-      <div id="modalContainer" ref={modalContainerRef} className="hidden z-[60] w-full h-screen absolute inset-0 justify-center items-center overflow-hidden">
-        <div onClick={handleRemoveAllURLs} className="h-screen w-full absolute bg-black bg-opacity-70 inset-0">
-
-        </div>
-        <form onSubmit={handleSubmit} className={`w-full z-50 lg:w-2/3 lg:max-w-[600px] lg:max-h-[600px] lg:mx-0  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar && windowWidth < 768 ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"} ${onDropError || valor.length > 500 ? "border-red-800 border-2": "" }`}>
+      <div
+        id="modalContainer"
+        ref={modalContainerRef}
+        className="hidden z-[60] w-full h-screen absolute inset-0 justify-center items-center overflow-hidden">
+        <div
+          onClick={handleRemoveAllURLs}
+          className="h-screen w-full absolute bg-black bg-opacity-70 inset-0"></div>
+        <form
+          onSubmit={handleSubmit}
+          className={`w-full z-50 lg:w-2/3 lg:max-w-[600px] lg:max-h-[600px] lg:mx-0  flex flex-col items-center justify-center bg-card rounded-lg ${deshabilitar && windowWidth < 768 ? "mx-0 h-full" : "h-2/3 mx-4 md:mx-20  border border-border"} ${onDropError || valor.length > 500 ? "border-red-800 border-2" : ""}`}>
           <div className="relative w-full flex flex-row items-center justify-center">
-            <ModalCancelBtn 
-            handleRemoveAllURLs={handleRemoveAllURLs}
-            discardChanges={discardChanges}
-            youllNeedReload={youllNeedReload}
-            cancel={cancel}
-            discard={discard}
+            <ModalCancelBtn
+              handleRemoveAllURLs={handleRemoveAllURLs}
+              discardChanges={discardChanges}
+              youllNeedReload={youllNeedReload}
+              cancel={cancel}
+              discard={discard}
             />
             <h3 className="text-2xl font-bold mt-5 mb-3">{createPost}</h3>
           </div>
@@ -164,31 +176,52 @@ export default function ModalCreatePost(
               className={`flex items-end text-xs md:text-base ${
                 valor.length > 500 ? "text-red-600" : ""
               }`}>
-              <span className="absolute right-2 md:right-4 bottom-0">{valor.length}/500</span>
+              <span className="absolute right-2 md:right-4 bottom-0">
+                {valor.length}/500
+              </span>
             </div>
           </div>
-          <div className={`bg-card w-full h-full flex flex-col items-center justify-center hover:cursor-pointer ${deshabilitar ? "dropzone disabled" : "px-4"}`} {...getRootProps()}>
+          <div
+            className={`bg-card w-full h-full flex flex-col items-center justify-center hover:cursor-pointer ${deshabilitar ? "dropzone disabled" : "px-4"}`}
+            {...getRootProps()}>
             <input {...getInputProps()} />
-            {
-              deshabilitar ? "" : <FaPhotoVideo className="w-20 h-20"/>
-            }
-            {
-              !isDragActive ? (
-                !deshabilitar ? (<div className="flex flex-col">
+            {deshabilitar ? "" : <FaPhotoVideo className="w-20 h-20" />}
+            {!isDragActive ? (
+              !deshabilitar ? (
+                <div className="flex flex-col">
                   <p className="text-center">{dragAndDrop}</p>
-                  <p className={`${onDropError ? "text-red-800 text-xl font-bold" : ""} text-center`}>{maxImg}</p>
-                </div>): ""
-              ): (
-                <p>{drop}</p>
+                  <p
+                    className={`${onDropError ? "text-red-800 text-xl font-bold" : ""} text-center`}>
+                    {maxImg}
+                  </p>
+                </div>
+              ) : (
+                ""
               )
-            }
+            ) : (
+              <p>{drop}</p>
+            )}
             {deshabilitar ? (
-              <LayoutGrid cards={acceptedFiles} handleSetObjectURL={handleSetObjectURL} />
-            ) : ""}
+              <LayoutGrid
+                cards={acceptedFiles}
+                handleSetObjectURL={handleSetObjectURL}
+              />
+            ) : (
+              ""
+            )}
           </div>
-          <Button disabled={onDropError || subiendo || valor.length > 500 || !valor ? true : false} className={`text-xl font-semibold lg:mb-6 ${deshabilitar ? "mb-5" : "mb-3"}`} variant={"default"}>{subiendo ? <LoadingComponent uploading={uploading}/> :  share}</Button>
+          <Button
+            disabled={
+              onDropError || subiendo || valor.length > 500 || !valor
+                ? true
+                : false
+            }
+            className={`text-xl font-semibold lg:mb-6 ${deshabilitar ? "mb-5" : "mb-3"}`}
+            variant={"default"}>
+            {subiendo ? <LoadingComponent text={uploading} /> : share}
+          </Button>
         </form>
       </div>
     </>
-  )
+  );
 }

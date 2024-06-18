@@ -66,7 +66,10 @@
     "requiredDay": "Select a day",
     "passwordsDontMatch": "Passwords do not match",
     "userAlreadyExists": "User already exists",
-    "emailAlreadyExists": "This email is already registered"
+    "emailAlreadyExists": "This email is already registered",
+    "accountCreated": "Account created successfully",
+    "goToLogin": "Go to login",
+    "creatingAccount": "Creating account"
   },
   "Feed": {
     "viewAll": "View all",
