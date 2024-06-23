@@ -7,11 +7,11 @@ import ImagenesCelulares from "@/components/ImagenesCelulares";
 import LogoNombre from "@/components/LogoNombre";
 import ThemeButtonSwitchAndLanguage from "@/components/ThemeButtonSwitchAndLanguage";
 
-
 export default function HomePage(params: { locale: "es" | "en" }) {
   unstable_setRequestLocale(params.locale);
 
   const t = useTranslations("Home");
+  const t2 = useTranslations("Form");
   return (
     <>
       <div className="container md:overflow-hidden  relative h-screen flex-col items-center justify-center grid lg:max-w-none custom-lg:grid-cols-2 custom-lg:px-0">
@@ -36,7 +36,23 @@ export default function HomePage(params: { locale: "es" | "en" }) {
                 {t("loginCardHeader")}
               </p>
             </div>
-            <FormInicio />
+            <FormInicio
+              validatingData={t("validatingData")}
+              emailNotRegistered={t("emailNotRegistered")}
+              wrongPassword={t("wrongPassword")}
+              login={t("login")}
+              email={t("email")}
+              emailExample={t("emailExample")}
+              requiredEmail={t2("requiredEmail")}
+              requiredFormatEmail={t2("requiredFormatEmail")}
+              password={t("password")}
+              requiredPassword={t2("requiredPassword")}
+              recoverPassword={t("recoverPassword")}
+              signInn={t("signInn")}
+              signUp={t("signUp")}
+              signUpAlternative={t("signUpAlternative")}
+              guest={t("guest")}
+            />
           </div>
           <div className="absolute w-full lg:pr-16 bottom-2">
             <FooterComp politica="" paddingTop="pt-4 md:pt-8" />

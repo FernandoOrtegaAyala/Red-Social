@@ -7,13 +7,16 @@
     "emailExample": "ejemplo@correo.com",
     "password": "Contraseña",
     "recoverPassword": "Recuperar contraseña",
-    "signIn": "Iniciar sesión",
+    "signInn": "Iniciar sesión",
     "signUp": "Crear cuenta",
     "signUpAlternative": "O entrar con una cuenta demo",
     "guest": "Invitado",
     "privacyPolicy": "Política de Privacidad",
     "createdBy": "Creado por",
-    "home": "Volver a inicio"
+    "home": "Volver a inicio",
+    "wrongPassword": "Contraseña incorrecta",
+    "emailNotRegistered": "El correo no se encuentra registrado",
+    "validatingData": "Validando datos ..."
   },
   "Policy": {
     "policyDescription": "La presente Política de Privacidad establece los términos en que usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Sitio web creado con fines académicos, estoy comprometido con la seguridad de los datos de sus usuarios. Cuando se le pide llenar los campos de información personal con la cual usted pueda ser identificado, se realiza asegurando que sólo se empleará de acuerdo con los términos de este documento, al registrar una cuenta acepta los terminos establecidos.",

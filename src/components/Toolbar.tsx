@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Link } from "@/navigation";
+
+import CreateBtn from "./CreateBtn";
 import ExitButtonToolbar from "./ExitButtonToolbar";
 import HomeButton from "./HomeButton";
 import MessageButton from "./MessageButton";
@@ -8,7 +10,6 @@ import SearchButtonToolbar from "./SearchButtonToolbar";
 import SettingsButton from "./SettingsButton";
 import AvatarSVG from "./svg/AvatarSVG";
 import ThemeButton from "./ThemeButton";
-import CreateBtn from "./CreateBtn";
 
 export default function Toolbar({
   project,
@@ -32,7 +33,7 @@ export default function Toolbar({
   profile: string;
   theme: string;
   logOut1: string;
-  locale: "es" | "en"
+  locale: "es" | "en";
 }) {
   return (
     <>
@@ -62,7 +63,7 @@ export default function Toolbar({
             clases="hidden mx-3"
           />
           <MessageButton messages={messages} />
-          <CreateBtn create={create}/>
+          <CreateBtn create={create} />
           <SettingsButton settings1={settings1} />
           <Link
             href="/feed/profile"
@@ -80,7 +81,7 @@ export default function Toolbar({
             texto="hidden lg:flex"
             tema={theme}
           />
-          <ExitButtonToolbar locale={locale}/>
+          <ExitButtonToolbar locale={locale} />
         </div>
       </div>
     </>
