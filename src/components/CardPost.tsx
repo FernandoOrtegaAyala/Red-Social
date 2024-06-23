@@ -1,18 +1,32 @@
-import { Link2Icon } from "@radix-ui/react-icons";
-import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { Link } from "../navigation";
 import CommentSVG from "./svg/CommentSVG";
 import LikeSVG from "./svg/LikeSVG";
 import ShareSVG from "./svg/ShareSVG";
 
-export default function CardPost() {
+export default function CardPost({
+  ago,
+  like,
+  likes,
+  viewAll,
+  share,
+  comments,
+  comment,
+}: {
+  ago: string;
+  likes: string;
+  like: string;
+  viewAll: string;
+  share: string;
+  comments: string;
+  comment: string;
+}) {
   //COLOCAR LA IMAGEN
   //CONFIGURAR DINAMICAMENTE EL NUMERO DE LIKES Y COMENTARIOS QUE SE MUESTRAN EN LA CARD
   //PONERLE EL HREF A LOS COMENTARIOS O HACER LA TARJETA MAS GRANDE PARA QUE SE MUESTREN TODOS Y PODER COMENTAR
-  const t = useTranslations("Feed");
+
   return (
     <>
       <article>
@@ -28,7 +42,7 @@ export default function CardPost() {
               <Link href="/" className="font-bold text-base">
                 nombre_usuario
               </Link>
-              <span className="text-xs text-muted-foreground">{t("ago")}</span>
+              <span className="text-xs text-muted-foreground">{ago}</span>
             </div>
           </div>
           <p className="w-full px-3 text-left text-sm mb-2">
@@ -39,24 +53,24 @@ export default function CardPost() {
             <div className="bg-blue-700 rounded-lg w-full h-full"></div>
           </div>
           <div className="w-full h-auto mt-2 px-3 bg-background flex flex-row items-center justify-start">
-            <p className="text-sm">10 {t("likes")}</p>
+            <p className="text-sm">10 {likes}</p>
           </div>
           <div className="w-full h-auto px-2 py-3 bg-background flex flex-row items-center justify-between">
             <div className="flex flex-row items-center justify-start">
               <button className="w-6 h-6 mx-2 flex items-center justify-center">
-                <LikeSVG />
+                <LikeSVG like={like} />
               </button>
               <button className="w-6 h-6 mx-2 flex items-center justify-center">
-                <CommentSVG />
+                <CommentSVG comment={comment} />
               </button>
               <button className="w-6 h-6 mx-2 flex items-center justify-center">
-                <ShareSVG />
+                <ShareSVG share={share} />
               </button>
             </div>
             <Link
               href="/"
               className="text-sm text-muted-foreground hover:underline mr-3">
-              {t("viewAll")} 5 {t("comments")}
+              {viewAll} 5 {comments}
             </Link>
           </div>
           <div className="w-full h-auto mb-2 px-2 my-1 bg-background flex flex-row items-center justify-end "></div>

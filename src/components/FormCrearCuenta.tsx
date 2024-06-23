@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Link } from "@/navigation";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { RiShieldUserFill } from "react-icons/ri";
 

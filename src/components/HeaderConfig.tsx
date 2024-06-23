@@ -1,4 +1,4 @@
-import { Link } from "@/navigation";
+import Link from "next/link";
 import { ArrowLeftIcon, CheckIcon } from "@radix-ui/react-icons";
 
 export default function HeaderConfig({

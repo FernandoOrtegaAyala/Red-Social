@@ -1,7 +1,4 @@
-import { useTranslations } from "next-intl";
-
-export default function CommentSVG() {
-  const t = useTranslations("Feed");
+export default function CommentSVG({ comment }: { comment: string }) {
   return (
     <>
       <svg
@@ -11,7 +8,7 @@ export default function CommentSVG() {
         viewBox="0 0 24 24"
         width="24"
         className="w-full h-full">
-        <title>{t("comment")}</title>
+        <title>{comment}</title>
         <path
           d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z"
           fill="none"

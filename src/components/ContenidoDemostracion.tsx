@@ -1,7 +1,5 @@
-import { useTranslations } from "next-intl";
+import { Locale } from "@/i18n.config";
 import {
-  ArchiveIcon,
-  AvatarIcon,
   BackpackIcon,
   CardStackPlusIcon,
   CookieIcon,
@@ -9,20 +7,19 @@ import {
   CubeIcon,
   DrawingPinIcon,
   EraserIcon,
-  ExitIcon,
   GlobeIcon,
   LapTimerIcon,
   LightningBoltIcon,
   LinkBreak1Icon,
-  LockClosedIcon,
   MixIcon,
   PaperPlaneIcon,
-  Pencil1Icon,
   RocketIcon,
   RulerSquareIcon,
   SewingPinIcon,
   TrashIcon,
 } from "@radix-ui/react-icons";
+
+import { getDictionary } from "@/lib/dictionary";
 
 interface Obj {
   [key: string]: string;
@@ -48,13 +45,17 @@ const Iconos: Obj = {
   MixIcon: "Beatae optio",
 };
 
-const ContenidoDemostracion: React.FC<Obj> = (props) => {
-  const t = useTranslations("Feed");
+export default async function ContenidoDemostracion({
+  lang,
+}: {
+  lang: Locale;
+}) {
+  const { Feed } = await getDictionary(lang);
   return (
     <>
       <div className="w-full h-auto mt-2 pb-20 md:pb-5 px-6 lg:px-10 bg-background flex flex-col gap-2 items-start justify-start ">
         <p className="text-base mt-5 mb-2 text-current">
-          {t("contentDemostrative")}
+          {Feed.contentDemostrative}
         </p>
         {Object.entries(Iconos).map(([key, value]) => (
           <div className="w-full text-muted-foreground" key={key}>
@@ -103,6 +104,4 @@ const ContenidoDemostracion: React.FC<Obj> = (props) => {
       </div>
     </>
   );
-};
-
-export default ContenidoDemostracion;
+}

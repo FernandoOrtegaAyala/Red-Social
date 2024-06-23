@@ -1,5 +1,3 @@
-import { Value } from "@radix-ui/react-select";
-
 import FooterComp from "./FooterComp";
 
 const Lorem = "Lorem";

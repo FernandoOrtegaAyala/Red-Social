@@ -1,7 +1,7 @@
 "use client";
 
+import Link from "next/link";
 import { isMobile } from "@/helpers/knowDevice";
-import { Link } from "@/navigation";
 
 import GearSVG from "@/components/svg/GearSVG";
 

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link } from "@/navigation";
+import Link from "next/link";
 
 import CreateBtn from "./CreateBtn";
 import ExitButtonToolbar from "./ExitButtonToolbar";
@@ -21,7 +21,10 @@ export default function Toolbar({
   settings1,
   profile,
   theme,
-  locale,
+  logOut1,
+  logOutConfirm,
+  logOutText,
+  cancel,
 }: {
   project: string;
   feed: string;
@@ -33,7 +36,9 @@ export default function Toolbar({
   profile: string;
   theme: string;
   logOut1: string;
-  locale: "es" | "en";
+  logOutConfirm: string;
+  logOutText: string;
+  cancel: string;
 }) {
   return (
     <>
@@ -81,7 +86,12 @@ export default function Toolbar({
             texto="hidden lg:flex"
             tema={theme}
           />
-          <ExitButtonToolbar locale={locale} />
+          <ExitButtonToolbar
+            logOut1={logOut1}
+            logOutConfirm={logOutConfirm}
+            logOutText={logOutText}
+            cancel={cancel}
+          />
         </div>
       </div>
     </>

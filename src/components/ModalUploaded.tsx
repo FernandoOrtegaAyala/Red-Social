@@ -1,6 +1,8 @@
-"use client"
-import { useRef, useState, useEffect } from "react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { GrStatusGood } from "react-icons/gr";
+
 import { Button } from "./ui/button";
 
 export default function ModalUploaded({
@@ -10,14 +12,14 @@ export default function ModalUploaded({
   created: string;
   accept: string;
 }) {
-  const [modal, setModal] = useState(false)
-  
+  const [modal, setModal] = useState(false);
+
   const modalUploadedRef = useRef<HTMLDivElement>(null);
-  
+
   const handleModalUploaded = () => {
-    setModal(prevState => !prevState)
-  }
-  
+    setModal((prevState) => !prevState);
+  };
+
   useEffect(() => {
     if (modalUploadedRef.current) {
       modalUploadedRef.current.classList.toggle("hidden");
@@ -27,13 +29,18 @@ export default function ModalUploaded({
 
   return (
     <>
-      <div id="modalUploaded" ref={modalUploadedRef} className="hidden w-full h-screen z-[350] bg-black bg-opacity-60 absolute inset-0 justify-center items-center">
+      <div
+        id="modalUploaded"
+        ref={modalUploadedRef}
+        className="hidden w-full h-screen z-[350] bg-black bg-opacity-60 absolute inset-0 justify-center items-center">
         <div className="w-full mx-4 md:w-2/5 md:mx-0 lg:w-[400px] z-[400] h-auto bg-background rounded-md flex flex-col items-center justify-center gap-5 py-6 px-4 border border-border">
           <p className="text-2xl font-bold text-center">{created}</p>
           <GrStatusGood className="text-green-700 w-20 h-20 animate-rotate-y animate-twice animate-ease-out" />
-          <Button onClick={handleModalUploaded} variant={"outline"}>{accept}</Button>
+          <Button onClick={handleModalUploaded} variant={"outline"}>
+            {accept}
+          </Button>
         </div>
       </div>
     </>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Link } from "@/navigation";
+import Link from "next/link";
 import { EnvelopeClosedIcon } from "@radix-ui/react-icons";
 
 export default function MessageButton({ messages }: { messages: string }) {

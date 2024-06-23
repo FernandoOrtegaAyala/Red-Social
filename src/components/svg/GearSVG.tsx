@@ -1,4 +1,4 @@
-import { usePathname } from "@/navigation";
+import { usePathname } from "next/navigation";
 
 export default function GearSVG() {
   const pathName = usePathname();

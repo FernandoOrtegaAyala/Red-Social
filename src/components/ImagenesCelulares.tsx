@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function ImagenesCelulares() {
+export default async function ImagenesCelulares() {
   return (
     <div className="container z-20 flex flex-row justify-center items-center">
       <Image

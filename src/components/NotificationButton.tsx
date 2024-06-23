@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { isMobile } from "@/helpers/knowDevice";
-import { Link } from "@/navigation";
 import { BellIcon } from "lucide-react";
 
 export default function NotificationButton({

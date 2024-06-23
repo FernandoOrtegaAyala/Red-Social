@@ -1,18 +1,18 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
-import LanguageButton from "@/components/LanguageButton";
 
 import { Switch } from "@/components/ui/switch";
+import LanguageButton from "@/components/LanguageButton";
 
-export default function ThemeButtonSwitch() {
+export default function ThemeButtonSwitchAndLanguage() {
   const { theme, setTheme } = useTheme();
   const [isChecked, setIsChecked] = useState(false);
+  const storedTheme = localStorage.getItem("theme");
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
     if (storedTheme === "dark") {
       setIsChecked(false);
     } else {

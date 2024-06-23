@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@/navigation";
+import Link from "next/link";
 import { AvatarIcon } from "@radix-ui/react-icons";
 
 import CommentFilled from "@/components/svg/CommentFilled";

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Link } from "@/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { RiShieldUserFill } from "react-icons/ri";
 
@@ -66,6 +66,8 @@ export default function FormInicio({
   const [errorPassword, setErrorPassword] = useState<string>("");
   const [errorEmail, setErrorEmail] = useState<string>("");
   const [validando, setValidando] = useState<boolean>(false);
+  const { data: session, status } = useSession();
+  console.log(session, status);
 
   const onSubmit = handleSubmit(async (data) => {
     setValidando(true);
