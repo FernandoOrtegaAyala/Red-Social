@@ -51,7 +51,7 @@ export default function Toolbar({
           <Image
             className="w-full h-full lg:w-10 lg:h-10"
             src="/android-chrome-512x512.png"
-            alt="Logo del proyecto"
+            alt=""
             width={30}
             height={30}
           />
