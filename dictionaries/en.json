@@ -123,7 +123,8 @@
     "follow": "Follow",
     "message": "Message",
     "noFunctionality": "No functionality",
-    "demonstrationSection": "Demonstration section"
+    "demonstrationSection": "Demonstration section",
+    "myProfile": "My profile"
   },
   "Create": {
     "createPost": "Create post",

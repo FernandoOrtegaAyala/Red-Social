@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Search } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 import LogoNombre from "./LogoNombre";
 import NotificationButton from "./NotificationButton";
@@ -10,6 +11,9 @@ import SearchButton from "./SearchButton";
 export default function HeaderMobile() {
   const [visibility, setVisibility] = useState(true);
   const [keyValue, setKeyValue] = useState(0);
+
+  const { data: session, status } = useSession();
+  console.log(session, status);
 
   const handleSearchVisibility = () => setVisibility(false);
   return (

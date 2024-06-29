@@ -17,7 +17,7 @@ export default async function FeedLayout({
   return (
     <>
       <SessionAuthProvider>
-        <div className="relative w-full h-screen overflow-hidden">
+        <div className="relative w-full h-screen overflow-y-auto">
           {children}
           <ModalUploaded created={Create.created} accept={Create.accept} />
           <ModalCreatePost

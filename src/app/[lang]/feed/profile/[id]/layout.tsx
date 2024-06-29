@@ -22,7 +22,7 @@ export default async function MuroInicio({
 
   return (
     <>
-      <div className="relative overflow-x-hidden flex flex-col md:ml-16 lg:ml-40 md:px-4 lg:px-48">
+      <div className="relative overflow-x-hidden overflow-y-auto flex flex-col md:ml-16 lg:ml-40 md:px-4 lg:px-48">
         <SearchContainer />
         <NotificationContainer />
         <HeaderConfig texto="username" referencia="/feed" checkIcono="hidden" />
@@ -64,9 +64,9 @@ export default async function MuroInicio({
           following={Profile.following}
         />
         <div className="mt-6 py-0 border shadow-2xl bg-background flex justify-center">
-          <PostsButton />
-          <ReelsButton />
-          <TaggedButton />
+          <PostsButton linkRef="/feed/profile/12" />
+          <ReelsButton linkRef="/feed/profile/12/reels" />
+          <TaggedButton linkRef="/feed/profile/12/tagged" />
         </div>
         {children}
         <Toolbar

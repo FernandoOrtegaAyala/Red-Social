@@ -8,11 +8,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="bg-purple-600 flex items-center justify-center w-full h-screen">
-        <p className="text-center w-auto h-auto text-5xl">
-          Dashooooooooooooooard
-        </p>
-      </div>
+      <div className="bg-blue-700 w-full h-screen"></div>
     </>
   );
 }

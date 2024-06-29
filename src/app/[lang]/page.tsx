@@ -1,4 +1,5 @@
 import { Locale } from "@/i18n.config";
+import { useSession } from "next-auth/react";
 
 import { getDictionary } from "@/lib/dictionary";
 import FooterComp from "@/components/FooterComp";
@@ -13,6 +14,7 @@ export default async function HomePage({
   params: { lang: Locale };
 }) {
   const { Home, Form } = await getDictionary(lang);
+
   return (
     <>
       <div className="container md:overflow-hidden  relative h-screen flex-col items-center justify-center grid lg:max-w-none custom-lg:grid-cols-2 custom-lg:px-0">

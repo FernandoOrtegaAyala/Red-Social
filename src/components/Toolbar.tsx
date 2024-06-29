@@ -71,7 +71,7 @@ export default function Toolbar({
           <CreateBtn create={create} />
           <SettingsButton settings1={settings1} />
           <Link
-            href="/feed/profile"
+            href="/feed/profile/my-profile"
             className="group w-6 h-6 mx-3 lg:mx-0 lg:py-2 lg:ml-2 lg:w-full lg:mb-48 lg:h-auto md:transform md:-rotate-90 lg:rotate-0 lg:flex lg:flex-row lg:items-end lg:justify-start lg:hover:bg-ring lg:hover:text-white lg:hover:rounded-md">
             <AvatarSVG />
             <span className="hidden lg:inline-block lg:ml-2 lg:text-base">

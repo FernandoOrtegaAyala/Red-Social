@@ -15,12 +15,49 @@ export default async function MuroInicio({
   params: { lang: Locale };
 }) {
   const { Feed } = await getDictionary(lang);
+
   return (
     <>
-      <div className="relative flex flex-col justify-center items-center md:ml-16 mb-20 md:mb-10 lg:ml-0 lg:px-40">
+      <div className="relative overflow-y-auto flex flex-col justify-center items-center md:ml-16 mb-20 md:mb-10 lg:ml-0 lg:px-40">
         <HeaderMobile />
         <Friendsbar />
         <div>
+          <CardPost
+            ago={Feed.ago}
+            likes={Feed.likes}
+            viewAll={Feed.viewAll}
+            comments={Feed.comments}
+            like={Feed.like}
+            share={Feed.share}
+            comment={Feed.comment}
+          />
+          <CardPost
+            ago={Feed.ago}
+            likes={Feed.likes}
+            viewAll={Feed.viewAll}
+            comments={Feed.comments}
+            like={Feed.like}
+            share={Feed.share}
+            comment={Feed.comment}
+          />
+          <CardPost
+            ago={Feed.ago}
+            likes={Feed.likes}
+            viewAll={Feed.viewAll}
+            comments={Feed.comments}
+            like={Feed.like}
+            share={Feed.share}
+            comment={Feed.comment}
+          />
+          <CardPost
+            ago={Feed.ago}
+            likes={Feed.likes}
+            viewAll={Feed.viewAll}
+            comments={Feed.comments}
+            like={Feed.like}
+            share={Feed.share}
+            comment={Feed.comment}
+          />
           <CardPost
             ago={Feed.ago}
             likes={Feed.likes}
