@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { type Locale } from "../lib/locales";
@@ -24,15 +24,17 @@ const removeLocalePrefix = (pathname, prefixes) => {
 export default function LanguageToolbar() {
   const router = useRouter();
   const pathname = usePathname();
+  const [language, setLanguage] = useState(false);
 
   const cookieLanguage = getCookie("NEXT_LOCALE");
 
   function handleLocaleChange(newLocale: Locale): void {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
     router.push(`/${newLocale}/${cleanedPathname}`);
+    setLanguage((prevState) => !prevState);
   }
 
-  useEffect(() => {}, []);
+  useEffect(() => {}, [language]);
 
   const prefixes = ["/es", "/en"];
 

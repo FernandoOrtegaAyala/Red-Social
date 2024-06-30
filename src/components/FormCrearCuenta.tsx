@@ -130,7 +130,6 @@ export default function FormCrearCuenta({
   const modalCreatedRef = document.getElementById("modalCreated");
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log("Antes: ", modalCreatedRef);
     setCreando(true);
 
     if (data.password !== data.confirmarContraseña) {

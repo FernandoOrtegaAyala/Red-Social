@@ -17,7 +17,7 @@ export default function AvatarSVG() {
           r="11"
           fill={pathName.includes("/profile") ? "currentColor" : "none"}
           stroke="currentColor"
-          stroke-width="2"
+          strokeWidth="2"
         />
         <circle
           cx="12"
@@ -46,9 +46,9 @@ export default function AvatarSVG() {
               : "none"
           }
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         />
       </svg>
     </>

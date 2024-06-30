@@ -33,7 +33,7 @@ export default function ExitButtonContenidoFuncional({
         <AlertDialogTrigger className="w-full h-auto flex flex-row items-start justify-start text-red-800 hover:bg-red-700 hover:py-1 hover:text-white hover:rounded-md">
           <p className="w-auto h-auto text-sm py-1">{logOut2}</p>
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className="z-[400]">
           <AlertDialogHeader>
             <AlertDialogTitle>{logOutConfirm}</AlertDialogTitle>
             <AlertDialogDescription>{logOutText}</AlertDialogDescription>

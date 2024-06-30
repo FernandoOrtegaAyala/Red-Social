@@ -72,7 +72,9 @@
     "emailAlreadyExists": "Este correo ya se encuentra registrado",
     "accountCreated": "Cuenta creada con éxito",
     "goToLogin": "Ir a iniciar sesión",
-    "creatingAccount": "Creando cuenta"
+    "creatingAccount": "Creando cuenta",
+    "userUpdated": "Datos actualizados con éxito",
+    "updatingData": "Actualizando datos"
   },
   "Feed": {
     "viewAll": "Ver todos los",
@@ -97,7 +99,7 @@
     "account": "Cuenta",
     "editProfile": "Editar perfil",
     "language": "Idioma",
-    "contentDemostrative": "Sin funcionalidad,únicamente demostrativo visual",
+    "contentDemostrative": "Sin funcionalidad, demostrativo visual",
     "logOutConfirm": "¿Está seguro de querer cerrar su sesión?",
     "logOutText": "Tendrá que volver a iniciar sesión.",
     "cancel": "Cancelar"
@@ -139,6 +141,7 @@
     "discard": "Descartar",
     "created": "Publicación creada",
     "accept": "Aceptar",
-    "uploading": "Subiendo..."
+    "uploading": "Subiendo...",
+    "uploadingError": "Error al subir la imagen, intente de nuevo"
   }
 }

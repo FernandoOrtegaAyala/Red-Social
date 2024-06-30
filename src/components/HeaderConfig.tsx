@@ -4,11 +4,9 @@ import { ArrowLeftIcon, CheckIcon } from "@radix-ui/react-icons";
 export default function HeaderConfig({
   texto,
   referencia,
-  checkIcono,
 }: {
   texto: string;
   referencia: string;
-  checkIcono: string;
 }) {
   return (
     <>
@@ -18,9 +16,7 @@ export default function HeaderConfig({
         </Link>
         <p className="text-lg font-bold text-center w-full">{texto}</p>
         <div className="w-6 h-6"></div>
-        <button className={`${checkIcono}  right-2 w-8 h-8`}>
-          <CheckIcon className="w-full h-full text-green-700" />
-        </button>
+        <div></div>
       </div>
     </>
   );

@@ -30,7 +30,11 @@ const palabras = {
   Laborum,
 };
 
-export default function FooterPagConfiguracion() {
+export default function FooterPagConfiguracion({
+  createdBy,
+}: {
+  createdBy: string;
+}) {
   return (
     <>
       <div className="hidden md:absolute md:bottom-1 md:flex md:flex-col md:flex-wrap md:gap-3 md:w-full md:pr-16 lg:pr-48">
@@ -43,7 +47,7 @@ export default function FooterPagConfiguracion() {
             </button>
           ))}
         </div>
-        <FooterComp politica="" paddingTop="" />
+        <FooterComp politica="" paddingTop="" createdBy={createdBy} />
       </div>
     </>
   );

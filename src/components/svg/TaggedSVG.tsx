@@ -20,18 +20,18 @@ export default function TaggedSVG() {
           stroke={
             pathName.endsWith("tagged") ? "rgb(0, 192, 240)" : "currentColor"
           }
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"></path>
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"></path>
         <path
           d="M18.598 22.002V21.4a3.949 3.949 0 0 0-3.948-3.949H9.495A3.949 3.949 0 0 0 5.546 21.4v.603"
           fill="none"
           stroke={
             pathName.endsWith("tagged") ? "rgb(0, 192, 240)" : "currentColor"
           }
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"></path>
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"></path>
         <circle
           cx="12.072"
           cy="11.075"
@@ -40,9 +40,9 @@ export default function TaggedSVG() {
           stroke={
             pathName.endsWith("tagged") ? "rgb(0, 192, 240)" : "currentColor"
           }
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"></circle>
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"></circle>
       </svg>
     </>
   );

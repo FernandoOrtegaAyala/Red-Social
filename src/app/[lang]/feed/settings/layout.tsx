@@ -4,6 +4,7 @@ import { getDictionary } from "@/lib/dictionary";
 import ContenidoDemostracion from "@/components/ContenidoDemostracion";
 import ContenidoFuncional from "@/components/ContenidoFuncional";
 import HeaderConfig from "@/components/HeaderConfig";
+import ModalUserUpdated from "@/components/ModalUserUpdated";
 import NotificationContainer from "@/components/NotificationContainer";
 import SearchContainer from "@/components/SearchContainer";
 import Toolbar from "@/components/Toolbar";
@@ -15,18 +16,18 @@ export default async function ConfiguracionLayout({
   params: { lang: Locale };
   children: React.ReactNode;
 }) {
-  const { Feed } = await getDictionary(lang);
+  const { Feed, Form, Create } = await getDictionary(lang);
   return (
     <>
       <div className="relative h-screen md:grid md:grid-cols-3 mx-auto">
+        <ModalUserUpdated
+          userUpdated={Form.userUpdated}
+          accept={Create.accept}
+        />
         <SearchContainer />
         <NotificationContainer />
         {/*HeaderConfig*/}
-        <HeaderConfig
-          texto={Feed.settings2}
-          referencia="/feed"
-          checkIcono="hidden"
-        />
+        <HeaderConfig texto={Feed.settings2} referencia="/feed" />
         {/*Content*/}
         <div className=" overflow-y-auto md:ml-20 lg:ml-40 lg:col-start-1 lg:col-span-1 border-r shadow-2xl bg-background">
           <h3 className="hidden md:flex md:flex-row md:items-center md:justify-center font-semibold tracking-tight text-xl lg:text-2xl text-center my-5">

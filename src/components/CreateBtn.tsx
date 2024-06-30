@@ -1,23 +1,24 @@
-"use client"
-import { useState, useEffect } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import { AlignCenterVerticallyIcon } from "@radix-ui/react-icons";
 
-export default function CreateBtn({create}: {create: string}) {
+export default function CreateBtn({ create }: { create: string }) {
   const [modal, setModal] = useState(false);
 
   const modalContainer = document.getElementById("modalContainer");
 
   const handleCreateBtn = () => {
-    setModal(prevState => !prevState)
-  }
-  
+    setModal((prevState) => !prevState);
+  };
+
   useEffect(() => {
     if (modalContainer) {
       modalContainer?.classList.toggle("hidden");
       modalContainer?.classList.toggle("flex");
     }
   }, [modal]);
-  
+
   return (
     <>
       <button
@@ -29,5 +30,5 @@ export default function CreateBtn({create}: {create: string}) {
         </span>
       </button>
     </>
-  )
+  );
 }

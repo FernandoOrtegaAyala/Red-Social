@@ -19,8 +19,8 @@ export default function ReelsSVG() {
           stroke={
             pathName.endsWith("reels") ? "rgb(0, 192, 240)" : "currentColor"
           }
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinejoin="round"
+          strokeWidth="2"
           x1="2.049"
           x2="21.95"
           y1="7.002"
@@ -30,9 +30,9 @@ export default function ReelsSVG() {
           stroke={
             pathName.endsWith("reels") ? "rgb(0, 192, 240)" : "currentColor"
           }
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           x1="13.504"
           x2="16.362"
           y1="2.001"
@@ -42,9 +42,9 @@ export default function ReelsSVG() {
           stroke={
             pathName.endsWith("reels") ? "rgb(0, 192, 240)" : "currentColor"
           }
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           x1="7.207"
           x2="10.002"
           y1="2.11"
@@ -55,12 +55,12 @@ export default function ReelsSVG() {
           stroke={
             pathName.endsWith("reels") ? "rgb(0, 192, 240)" : "currentColor"
           }
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"></path>
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"></path>
         <path
           d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z"
-          fill-rule="evenodd"></path>
+          fillRule="evenodd"></path>
       </svg>
     </>
   );

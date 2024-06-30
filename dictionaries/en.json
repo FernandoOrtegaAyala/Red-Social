@@ -72,7 +72,9 @@
     "emailAlreadyExists": "This email is already registered",
     "accountCreated": "Account created successfully",
     "goToLogin": "Go to login",
-    "creatingAccount": "Creating account"
+    "creatingAccount": "Creating account",
+    "userUpdated": "Data updated successfully",
+    "updatingData": "Updating data"
   },
   "Feed": {
     "viewAll": "View all",
@@ -139,6 +141,7 @@
     "discard": "Discard",
     "created": "Post created",
     "accept": "Accept",
-    "uploading": "Uploading..."
+    "uploading": "Uploading...",
+    "uploadingError": "Error uploading the image, please try again"
   }
 }
