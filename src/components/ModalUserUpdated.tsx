@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { GrStatusGood } from "react-icons/gr";
 
 import { Button } from "./ui/button";
@@ -13,11 +14,13 @@ export default function ModalUserUpdated({
   accept: string;
 }) {
   const [modal, setModal] = useState(false);
+  const router = useRouter();
 
   const modalUpdatedRef = useRef<HTMLDivElement>(null);
 
   const handleModalUploaded = () => {
     setModal((prevState) => !prevState);
+    router.refresh();
   };
 
   useEffect(() => {
