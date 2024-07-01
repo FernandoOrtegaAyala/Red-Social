@@ -112,7 +112,11 @@
     "currentPassword": "Contraseña actual",
     "newPassword": "Nueva contraseña",
     "confirmNewPassword": "Confirmar nueva contraseña",
-    "saveChanges": "Guardar cambios"
+    "saveChanges": "Guardar cambios",
+    "errorCurrentPass": "Ingrese su contraseña actual",
+    "errorNewPass": "Ingrese una nueva contraseña",
+    "errorConfirmNewPass": "Confirme la nueva contraseña",
+    "errorPassDoesntMatch": "La nueva contraseña no coincide con su confirmación"
   },
   "Profile": {
     "editProfile": "Editar perfil",

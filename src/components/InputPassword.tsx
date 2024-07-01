@@ -45,6 +45,7 @@ export default function InputPassword({
           <input
             className="w-full bg-transparent border-transparent focus:outline-none"
             type={inputType}
+            id={htmlForTxt}
             {...register(htmlForTxt, {
               required: {
                 value: true,

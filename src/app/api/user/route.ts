@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/libs/db";
+import bcryptjs from "bcryptjs";
 
 export async function POST(request) {
   try {
@@ -24,6 +25,18 @@ export async function POST(request) {
         },
       });
       return NextResponse.json({ message: "Photo updated" });
+    }
+    if (dataReq.newPassword) {
+      const hashedPassword = await bcryptjs.hash(dataReq.newPassword, 10);
+      const user = await prisma.usuarios.update({
+        where: { email: dataReq.email },
+        data: {
+          password: hashedPassword,
+        },
+      });
+      return NextResponse.json({
+        message: "Password updated successfully",
+      });
     }
   } catch (error) {
     console.error("Error updating user:", error);
