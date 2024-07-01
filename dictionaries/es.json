@@ -146,6 +146,7 @@
     "created": "Publicación creada",
     "accept": "Aceptar",
     "uploading": "Subiendo...",
-    "uploadingError": "Error al subir la imagen, intente de nuevo"
+    "uploadingError": "Error al subir la imagen, intente de nuevo",
+    "createError": "Ha ocurrido un error al intentar crear la publicación, intente de nuevo"
   }
 }

@@ -53,7 +53,7 @@ export default function ChangePhoto({
         setSubiendo(false);
         try {
           const resMyAPI = await fetch("http://localhost:3000/api/user", {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },

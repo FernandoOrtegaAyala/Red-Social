@@ -47,6 +47,7 @@ model posts {
   imagen1_url      String?       @db.VarChar(255)
   imagen2_url      String?       @db.VarChar(255)
   imagen3_url      String?       @db.VarChar(255)
+  imagen4_url      String?       @db.VarChar(255)
   comentarios      comentarios[]
   likes            likes[]
   usuarios         usuarios?     @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "posts_ibfk_1")
@@ -74,7 +75,7 @@ model usuarios {
   es_administrador                                    Boolean?         @default(false)
   fecha_registro                                      DateTime?        @default(now()) @db.DateTime(0)
   email                                               String           @unique(map: "email") @db.VarChar(45)
-  password                                            String           @db.VarChar(255)
+  password                                            String?          @db.VarChar(255)
   avatar                                              String?          @db.VarChar(255)
   bio                                                 String?          @default("Sin biografía") @db.VarChar(150)
   genero                                              usuarios_genero?

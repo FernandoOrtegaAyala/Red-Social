@@ -46,7 +46,7 @@ export default function ChangePasswordForm({
     } else {
       try {
         const res = await fetch("http://localhost:3000/api/user", {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },

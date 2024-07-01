@@ -24,6 +24,8 @@ export default function ModalCreatePost({
   cancel,
   discard,
   uploading,
+  createError,
+  user,
 }: {
   createPost: string;
   shareWhatYou: string;
@@ -36,6 +38,8 @@ export default function ModalCreatePost({
   cancel: string;
   discard: string;
   uploading: string;
+  createError: string;
+  user: any;
 }) {
   const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
@@ -53,9 +57,16 @@ export default function ModalCreatePost({
   const [valor, setValor] = useState("");
   const [modal, setModal] = useState(false);
   const [onDropError, setOnDropError] = useState(false);
+  const [error, setError] = useState(false);
   const [objectURLs, setObjectURLs] = useState<
     { url: string; revoke: () => void }[]
   >([]);
+
+  const modalContainerRef = useRef<HTMLDivElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const modalUploadedRef = document.getElementById("modalUploaded");
+
+  let imagesURL = [];
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValor(event.target.value);
@@ -64,7 +75,7 @@ export default function ModalCreatePost({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    acceptedFiles.forEach(async (file) => {
+    const uploadPromises = acceptedFiles.map(async (file) => {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", "jwc0oyua");
@@ -81,23 +92,48 @@ export default function ModalCreatePost({
         );
 
         if (!res.ok) {
-          throw new Error("Error en la solicitud de carga");
+          setError(true);
         }
 
+        setError(false);
         const data = await res.json();
         console.log(data);
-        handleRemoveAllURLs();
-        postCreado();
-        setSubiendo(false);
+        imagesURL.push(data.secure_url);
       } catch (error) {
         console.error("Error al cargar el archivo:", error);
+        setError(true);
       }
     });
-  };
 
-  const modalContainerRef = useRef<HTMLDivElement>(null);
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const modalUploadedRef = document.getElementById("modalUploaded");
+    await Promise.all(uploadPromises);
+
+    try {
+      const resMyAPI = await fetch("http://localhost:3000/api/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_usuario: user.id_usuario,
+          imagesURL,
+          texto: valor,
+        }),
+      });
+
+      if (!resMyAPI.ok) {
+        setError(true);
+      }
+
+      const resData = await resMyAPI.json();
+      console.log(resData);
+      postCreado();
+      setSubiendo(false);
+      handleRemoveAllURLs();
+    } catch (error) {
+      setError(true);
+      console.error("Error de la API:", error);
+    }
+  };
 
   const handleSetObjectURL = useCallback(
     (url: string, revokeUrl: () => void) => {
@@ -159,6 +195,7 @@ export default function ModalCreatePost({
             />
             <h3 className="text-2xl font-bold mt-5 mb-3">{createPost}</h3>
           </div>
+          {error ? <p className="text-red-600 text-lg">{createError}</p> : null}
           <div
             className={`p-4 md:px4 md:pt-0 flex relative pb-5 flex-row w-full bg-card ring-offset-background ${
               valor.length > 500

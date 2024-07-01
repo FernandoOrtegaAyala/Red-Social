@@ -146,6 +146,7 @@
     "created": "Post created",
     "accept": "Accept",
     "uploading": "Uploading...",
-    "uploadingError": "Error uploading the image, please try again"
+    "uploadingError": "Error uploading the image, please try again",
+    "createError": "An error occurred while creating the post, please try again"
   }
 }

@@ -1,8 +1,11 @@
 import { Locale } from "@/i18n.config";
+import prisma from "@/libs/db";
+import { getServerSession } from "next-auth/next";
 
 import { getDictionary } from "@/lib/dictionary";
 import ModalCreatePost from "@/components/ModalCreatePost";
 import ModalUploaded from "@/components/ModalUploaded";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 import SessionAuthProvider from "../providers";
 
@@ -14,6 +17,15 @@ export default async function FeedLayout({
   children: React.ReactNode;
 }) {
   const { Create } = await getDictionary(lang);
+  const session = await getServerSession(authOptions);
+  const user = await prisma.usuarios.findUnique({
+    where: {
+      email: session?.user?.email,
+    },
+    select: {
+      id_usuario: true,
+    },
+  });
   return (
     <>
       <SessionAuthProvider>
@@ -32,6 +44,8 @@ export default async function FeedLayout({
             cancel={Create.cancel}
             discard={Create.discard}
             uploading={Create.uploading}
+            createError={Create.createError}
+            user={user}
           />
         </div>
       </SessionAuthProvider>

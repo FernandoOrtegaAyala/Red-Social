@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/libs/db";
 import bcryptjs from "bcryptjs";
 
-export async function POST(request) {
+export async function PUT(request) {
   try {
     const dataReq = await request.json();
     if (dataReq.nombre) {

@@ -55,7 +55,7 @@ export default function EditarCuentaFormulario({
     const newData = { ...data, id_usuario: user.id_usuario };
     try {
       const res = await fetch("http://localhost:3000/api/user", {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
