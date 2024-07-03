@@ -1,80 +1,109 @@
 import Link from "next/link";
+import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
+import { Locale } from "@/i18n.config";
+import prisma from "@/libs/db";
+import { format } from "date-fns";
+import { enUS, es } from "date-fns/locale";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import CommentComponent from "./CommentComponent";
+import EmptyComments from "./EmptyComments";
+import ImagePostProfile from "./ImagePostProfile";
+import ImgsCardPost from "./ImgsCardPost";
+import LikeAndCommentBar from "./LikeAndCommentBar";
+import MakeComment from "./MakeComment";
 
-import CommentSVG from "./svg/CommentSVG";
-import LikeSVG from "./svg/LikeSVG";
-import ShareSVG from "./svg/ShareSVG";
-
-export default function CardPost({
-  ago,
+export default async function CardPost({
+  id,
+  lang,
   like,
+  addComment,
   likes,
-  viewAll,
   share,
-  comments,
   comment,
+  emptyComments,
 }: {
-  ago: string;
+  id: string;
+  lang: Locale;
   likes: string;
+  addComment: string;
   like: string;
-  viewAll: string;
   share: string;
-  comments: string;
   comment: string;
+  emptyComments: string;
 }) {
-  //COLOCAR LA IMAGEN
-  //CONFIGURAR DINAMICAMENTE EL NUMERO DE LIKES Y COMENTARIOS QUE SE MUESTRAN EN LA CARD
-  //PONERLE EL HREF A LOS COMENTARIOS O HACER LA TARJETA MAS GRANDE PARA QUE SE MUESTREN TODOS Y PODER COMENTAR
+  const result = await prisma.posts.findUnique({
+    where: {
+      id_post: parseInt(id, 10),
+    },
+    include: {
+      usuarios: {
+        select: {
+          nombre_usuario: true,
+          avatar: true,
+        },
+      },
+      comentarios: {
+        select: {
+          id_usuario: true,
+          fecha_comentario: true,
+          texto: true,
+        },
+      },
+      _count: {
+        select: { likes: true },
+      },
+    },
+  });
+
+  console.log(result);
+
+  const languageLocale = lang == "es" ? es : enUS;
+
+  const formattedDate = format(result?.fecha_pubicacion, "MMMM d yyyy h:m a", {
+    locale: languageLocale,
+  });
 
   return (
     <>
-      <article>
-        <div className="w-auto max-w-md lg:max-w-xl  h-auto mt-10 md:mt-6 mb-0 md:mb-10 flex flex-col items-center border md:rounded-lg shadow-2xl ">
-          <div className="h-12 w-full px-1 mt-2 md:mt-5 mb-2 flex flex-row items-center bg-background">
-            <button className="w-14 h-14 flex items-center justify-center">
-              <Avatar className="w-10 h-10 lg:w-12 lg:h-12">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </button>
-            <div className="w-full h-full ml-2 py-1 flex flex-col justify-between items-start text-sm">
-              <Link href="/" className="font-bold text-base">
-                nombre_usuario
-              </Link>
-              <span className="text-xs text-muted-foreground">{ago}</span>
-            </div>
-          </div>
-          <p className="w-full px-3 text-left text-sm mb-2">
-            Lorem ipsum set heldrlorem ipsum set heldrLlorem ipsum set
-            heldrlorem ipsum set heldrlorem ipsum set heldr
-          </p>
-          <div className="h-96 w-full px-2">
-            <div className="bg-blue-700 rounded-lg w-full h-full"></div>
-          </div>
-          <div className="w-full h-auto mt-2 px-3 bg-background flex flex-row items-center justify-start">
-            <p className="text-sm">10 {likes}</p>
-          </div>
-          <div className="w-full h-auto px-2 py-3 bg-background flex flex-row items-center justify-between">
-            <div className="flex flex-row items-center justify-start">
-              <button className="w-6 h-6 mx-2 flex items-center justify-center">
-                <LikeSVG like={like} />
-              </button>
-              <button className="w-6 h-6 mx-2 flex items-center justify-center">
-                <CommentSVG comment={comment} />
-              </button>
-              <button className="w-6 h-6 mx-2 flex items-center justify-center">
-                <ShareSVG share={share} />
-              </button>
-            </div>
-            <Link
-              href="/"
-              className="text-sm text-muted-foreground hover:underline mr-3">
-              {viewAll} 5 {comments}
+      <article className="w-full h-auto bg-background pb-36">
+        <div className="w-full h-auto bg-background py-2 flex justify-start items-center gap-2">
+          <ImagePostProfile
+            classDiv="relative overflow-hidden w-16 md:w-14 h-14 ml-2 rounded-full"
+            classImg="object-cover"
+            linkImg={result?.usuarios?.avatar}
+          />
+          <div className="w-full h-full py-1 flex flex-col justify-between items-start text-sm">
+            <Link href="/feed" className="font-bold text-base">
+              {result?.usuarios?.nombre_usuario}
             </Link>
+            <span className="text-xs text-muted-foreground">
+              {capitalizeFirstLetter(formattedDate)}
+            </span>
           </div>
-          <div className="w-full h-auto mb-2 px-2 my-1 bg-background flex flex-row items-center justify-end "></div>
         </div>
+        <p className="bg-background px-2 mb-2">{result?.texto}</p>
+        {result?.imagen1_url ? (
+          <ImgsCardPost
+            image1URL={result.imagen1_url}
+            image2URL={result.imagen2_url}
+            image3URL={result.imagen3_url}
+            image4URL={result.imagen4_url}
+          />
+        ) : null}
+        <p className="w-full h-auto pl-2 my-2 ">{`${result?._count.likes} ${likes}`}</p>
+        <LikeAndCommentBar like={like} share={share} comment={comment} />
+        {result?.comentarios.length > 1 ? (
+          result?.comentarios.map((comment) => (
+            <CommentComponent
+              key={result.id_usuario}
+              comment={comment}
+              languageLocale={languageLocale}
+            />
+          ))
+        ) : (
+          <EmptyComments emptyComments={emptyComments} />
+        )}
+        <MakeComment addComment={addComment} />
       </article>
     </>
   );

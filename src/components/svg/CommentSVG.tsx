@@ -1,8 +1,14 @@
-export default function CommentSVG({ comment }: { comment: string }) {
+export default function CommentSVG({
+  comment,
+  color,
+}: {
+  comment: string;
+  color: string;
+}) {
   return (
     <>
       <svg
-        fill="currentColor"
+        fill={color}
         height="24"
         role="img"
         viewBox="0 0 24 24"
@@ -12,7 +18,7 @@ export default function CommentSVG({ comment }: { comment: string }) {
         <path
           d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z"
           fill="none"
-          stroke="currentColor"
+          stroke={color}
           strokeLinejoin="round"
           strokeWidth="2"></path>
       </svg>

@@ -5,8 +5,8 @@ import ShareSVG from "@/components/svg/ShareSVG";
 export default function TextPostProfile({ text }: { text: string }) {
   return (
     <>
-      <div className="relative w-1/3 h-[150px] md:h-[250px] lg:h-[500px] bg-card p-2 md:p-3 lg:p-5 flex items-center justify-center">
-        <div className="w-full h-full border border-border rounded-lg flex flex-col items-center justify-between p-1 md:p-3 lg:p-5">
+      <div className="relative  w-1/3 h-[150px] md:h-[250px] lg:h-[500px] bg-card p-2 md:p-3 lg:p-5 flex items-center justify-center">
+        <div className="w-full hover:cursor-pointer h-full border border-border rounded-lg flex flex-col items-center justify-between p-1 md:p-3 lg:p-5">
           <div className=""></div>
           <p className="text-base md:text-lg overflow-y-auto overflow-x-hidden max-w-full max-h-full w-auto h-auto pb-2 md:pb-0">
             {text}

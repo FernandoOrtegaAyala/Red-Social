@@ -102,7 +102,9 @@
     "contentDemostrative": "Without functionality, visual demonstration.",
     "logOutConfirm": "Are you sure you want to log out?",
     "logOutText": "You will need to log in again.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "addComment": "Add a comment...",
+    "emptyComments": "This post doesn't have any comments yet. Be the first to make one!"
   },
   "404": {
     "notFound": "Page not found"

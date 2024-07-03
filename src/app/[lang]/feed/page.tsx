@@ -1,7 +1,7 @@
 import { Locale } from "@/i18n.config";
 
 import { getDictionary } from "@/lib/dictionary";
-import CardPost from "@/components/CardPost";
+import CardPostFeed from "@/components/CardPostFeed";
 import Friendsbar from "@/components/Friendsbar";
 import HeaderMobile from "@/components/HeaderMobile";
 import NotificationContainer from "@/components/NotificationContainer";
@@ -22,7 +22,7 @@ export default async function MuroInicio({
         <HeaderMobile />
         <Friendsbar />
         <div>
-          <CardPost
+          <CardPostFeed
             ago={Feed.ago}
             likes={Feed.likes}
             viewAll={Feed.viewAll}
@@ -31,7 +31,7 @@ export default async function MuroInicio({
             share={Feed.share}
             comment={Feed.comment}
           />
-          <CardPost
+          <CardPostFeed
             ago={Feed.ago}
             likes={Feed.likes}
             viewAll={Feed.viewAll}
@@ -40,7 +40,7 @@ export default async function MuroInicio({
             share={Feed.share}
             comment={Feed.comment}
           />
-          <CardPost
+          <CardPostFeed
             ago={Feed.ago}
             likes={Feed.likes}
             viewAll={Feed.viewAll}
@@ -49,7 +49,7 @@ export default async function MuroInicio({
             share={Feed.share}
             comment={Feed.comment}
           />
-          <CardPost
+          <CardPostFeed
             ago={Feed.ago}
             likes={Feed.likes}
             viewAll={Feed.viewAll}
@@ -58,7 +58,7 @@ export default async function MuroInicio({
             share={Feed.share}
             comment={Feed.comment}
           />
-          <CardPost
+          <CardPostFeed
             ago={Feed.ago}
             likes={Feed.likes}
             viewAll={Feed.viewAll}

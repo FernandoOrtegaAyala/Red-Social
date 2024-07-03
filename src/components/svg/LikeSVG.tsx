@@ -1,8 +1,14 @@
-export default function LikeSVG({ like }: { like: string }) {
+export default function LikeSVG({
+  like,
+  color,
+}: {
+  like: string;
+  color: string;
+}) {
   return (
     <>
       <svg
-        fill="currentColor"
+        fill={color}
         height="24"
         role="img"
         viewBox="0 0 24 24"

@@ -14,6 +14,18 @@ const nextConfig = {
         port: "",
         pathname: "/duan4ka5v/image/upload/**",
       },
+      {
+        protocol: "https",
+        hostname: "img.freepik.com",
+        port: "",
+        pathname: "/free-vector/**",
+      },
+      {
+        protocol: "https",
+        hostname: "as2.ftcdn.net",
+        port: "",
+        pathname: "/v2/**",
+      },
     ],
   },
 };

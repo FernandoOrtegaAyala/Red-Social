@@ -102,7 +102,9 @@
     "contentDemostrative": "Sin funcionalidad, demostrativo visual",
     "logOutConfirm": "¿Está seguro de querer cerrar su sesión?",
     "logOutText": "Tendrá que volver a iniciar sesión.",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "addComment": "Haz un comentario...",
+    "emptyComments": "Este post aún no tiene comentarios. ¡Sé el primero en hacer uno!"
   },
   "404": {
     "notFound": "Página no encontrada"

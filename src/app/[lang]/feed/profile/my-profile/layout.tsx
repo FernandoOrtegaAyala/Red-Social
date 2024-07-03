@@ -68,11 +68,11 @@ export default async function MyProfileLayout({
         <SearchContainer />
         <NotificationContainer />
         <HeaderConfig texto={Profile.myProfile} referencia="/feed" />
-        <div className="mt-12 md:mt-0 w-full h-44 bg-primary"></div>
+        <div className="mt-12 md:mt-0 w-full h-44  bg-primary"></div>
         <div className="absolute w-full ml-2 md:ml-0 md:pr-8 lg:pr-96 top-32 md:top-20 z-20 md:flex md:justify-center ">
           {user?.avatar ? (
             <ImagePostProfile
-              classDiv="relative overflow-hidden w-32 h-32 border-current border-2 rounded-full"
+              classDiv="relative overflow-hidden w-32 h-32  rounded-full"
               classImg="object-cover"
               linkImg={user?.avatar}
             />
