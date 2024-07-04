@@ -23,13 +23,16 @@ export default async function MakeComment({
 
   return (
     <>
-      <div className="fixed z-[100] bottom-16 bg-background shadow-xl left-0 w-full h-auto flex items-center justify-start px-2 py-2 gap-2">
+      <div className="fixed z-[100] bottom-16 md:bottom-0 md:py-2 md:pl-20 md:pr-8 lg:pl-44 lg:pr-96 bg-background shadow-xl left-0 w-full h-auto flex items-center justify-start px-2 py-2 gap-2">
         <ImagePostProfile
-          classDiv="relative overflow-hidden w-10 h-10 rounded-full"
+          classDiv="relative overflow-hidden w-12 md:w-10 h-10 lg:w-14 lg:h-14 rounded-full"
           classImg="object-cover"
           linkImg={user.avatar}
         />
-        <Input className="border border-border" placeholder={addComment} />
+        <Input
+          className="border border-border lg:text-lg"
+          placeholder={addComment}
+        />
       </div>
     </>
   );

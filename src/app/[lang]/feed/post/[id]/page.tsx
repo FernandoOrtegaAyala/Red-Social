@@ -22,6 +22,7 @@ export default async function PostId({
           id={id}
           lang={lang}
           emptyComments={Feed.emptyComments}
+          viewImage={Feed.viewImage}
         />
       </div>
     </>

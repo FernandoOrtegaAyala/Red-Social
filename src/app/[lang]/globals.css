@@ -120,6 +120,9 @@
 .containerImg:hover .icon {
   visibility: visible;
 }
+.embla__slide:hover .hidden-link {
+  display: block;
+}
 
 ::-webkit-scrollbar {
   width: 5px;

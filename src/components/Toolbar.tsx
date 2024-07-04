@@ -43,7 +43,7 @@ export default function Toolbar({
   return (
     <>
       {/* Contenedor principal */}
-      <div className="md:col-start-1 md:col-span-1 md:fixed md:transform md:translate-x-0 md:rotate-90 md:origin-top-left md:left-16 lg:left-36 md:top-0 md:w-custom-full-h md:flex md:items-center md:justify-center md:border-t md:shadow-2xl md:bg-background lg:justify-between lg:mx-3 lg:h-40 lg:py-4 ">
+      <div className="z-[150] md:col-start-1 md:col-span-1 md:fixed md:transform md:translate-x-0 md:rotate-90 md:origin-top-left md:left-16 lg:left-36 md:top-0 md:w-custom-full-h md:flex md:items-center md:justify-center md:border-t md:shadow-2xl md:bg-background lg:justify-between lg:mx-3 lg:h-40 lg:py-4 ">
         {/* Logo */}
         <Link
           href="/feed"

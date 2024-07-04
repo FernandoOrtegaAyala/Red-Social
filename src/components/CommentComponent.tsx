@@ -28,22 +28,22 @@ export default async function CommentComponent({
 
   return (
     <>
-      <div className="w-full h-auto px-4 mt-4 bg-background flex justify-start items-start gap-2">
+      <div className="w-full h-auto px-2 mt-4 md:mt-6 bg-background flex justify-start items-start gap-2">
         <ImagePostProfile
-          classDiv="relative overflow-hidden w-12 md:w-10 h-10 ml-2 rounded-full"
+          classDiv="relative overflow-hidden w-12 md:w-10 h-10 lg:w-14 lg:h-14 ml-2 rounded-full"
           classImg="object-cover"
           linkImg={user?.avatar}
         />
-        <div className="w-full h-full flex flex-col justify-start items-start text-sm gap-2">
+        <div className="w-full h-full flex flex-col justify-start items-start text-sm gap-2 lg:gap-0">
           <div className="flex gap-2 items-center justify-start">
-            <Link href="/feed" className="font-medium text-base">
+            <Link href="/feed" className="font-semibold text-lg">
               {user?.nombre_usuario}
             </Link>
-            <span className="text-xs text-muted-foreground">
+            <span className="text-sm text-muted-foreground">
               {formattedDate}
             </span>
           </div>
-          <p className="w-full h-auto">{comment.texto}</p>
+          <p className="w-full h-auto text-base">{comment.texto}</p>
         </div>
       </div>
     </>

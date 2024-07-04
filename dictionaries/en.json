@@ -104,7 +104,8 @@
     "logOutText": "You will need to log in again.",
     "cancel": "Cancel",
     "addComment": "Add a comment...",
-    "emptyComments": "This post doesn't have any comments yet. Be the first to make one!"
+    "emptyComments": "This post doesn't have any comments yet. Be the first to make one!",
+    "viewImage": "View image"
   },
   "404": {
     "notFound": "Page not found"
