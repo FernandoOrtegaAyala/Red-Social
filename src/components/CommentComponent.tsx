@@ -39,11 +39,11 @@ export default async function CommentComponent({
             <Link href="/feed" className="font-semibold text-lg">
               {user?.nombre_usuario}
             </Link>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-base text-muted-foreground">
               {formattedDate}
             </span>
           </div>
-          <p className="w-full h-auto text-base">{comment.texto}</p>
+          <p className="w-full h-auto text-base pr-4">{comment.texto}</p>
         </div>
       </div>
     </>

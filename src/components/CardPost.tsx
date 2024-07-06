@@ -22,6 +22,7 @@ export default async function CardPost({
   comment,
   emptyComments,
   viewImage,
+  linkCopied,
 }: {
   id: string;
   lang: Locale;
@@ -32,6 +33,7 @@ export default async function CardPost({
   comment: string;
   emptyComments: string;
   viewImage: string;
+  linkCopied: string;
 }) {
   const result = await prisma.posts.findUnique({
     where: {
@@ -67,47 +69,58 @@ export default async function CardPost({
 
   return (
     <>
-      <article className="w-full h-auto bg-background pb-36 md:mt-5 lg:flex lg:flex-col lg:pr-96">
-        <div className="w-full h-auto bg-background py-2 flex justify-start items-center gap-2">
-          <ImagePostProfile
-            classDiv="relative overflow-hidden w-16 md:w-14 h-14 lg:w-16 lg:h-14 ml-2 rounded-full"
-            classImg="object-cover"
-            linkImg={result?.usuarios?.avatar}
+      <article
+        className={`w-full h-auto pb-24 lg:pb-28 bg-background md:pt-4 lg:flex lg:flex-col lg:max-w-[1200px] lg:col-start-1 lg:col-span-3 ${result?.imagen1_url ? "" : "lg:mb-40 md:flex md:h-full md:justify-center md:items-center md:mt-0 lg:px-4"}`}>
+        <div
+          className={`w-full h-auto ${result?.imagen1_url ? "" : "md:w-[550px] lg:w-full lg:max-w-[800px] md:border border-border md:pb-0 md:p-4 lg:px-6 rounded-md"}`}>
+          <div className="w-full h-auto bg-background py-2 flex justify-start items-center gap-2">
+            <ImagePostProfile
+              classDiv="relative overflow-hidden w-16 md:w-14 h-14 lg:w-16 lg:h-16 ml-2 rounded-full"
+              classImg="object-cover"
+              linkImg={result?.usuarios?.avatar}
+            />
+            <div className="w-full h-full py-1 flex flex-col justify-between items-start text-sm">
+              <Link href="/feed" className="font-bold text-xl">
+                {result?.usuarios?.nombre_usuario}
+              </Link>
+              <span className="text-base text-muted-foreground">
+                {capitalizeFirstLetter(formattedDate)}
+              </span>
+            </div>
+          </div>
+          <p className="bg-background w-full px-2 mb-4 lg:text-lg">
+            {result?.texto}
+          </p>
+          {result?.imagen1_url ? (
+            <ImgsCardPost
+              image1URL={result.imagen1_url}
+              image2URL={result.imagen2_url}
+              image3URL={result.imagen3_url}
+              image4URL={result.imagen4_url}
+              viewImage={viewImage}
+            />
+          ) : null}
+          <p className="w-full h-auto pl-2 my-2 md:text-lg lg:text-xl">{`${result?._count.likes} ${likes}`}</p>
+          <LikeAndCommentBar
+            like={like}
+            share={share}
+            comment={comment}
+            linkCopied={linkCopied}
           />
-          <div className="w-full h-full py-1 flex flex-col justify-between items-start text-sm">
-            <Link href="/feed" className="font-bold text-xl">
-              {result?.usuarios?.nombre_usuario}
-            </Link>
-            <span className="text-base text-muted-foreground">
-              {capitalizeFirstLetter(formattedDate)}
-            </span>
+          <div className="w-full h-auto max-h-[400px] pb-6 overflow-y-auto">
+            {result?.comentarios.length >= 1 ? (
+              result?.comentarios.map((comment) => (
+                <CommentComponent
+                  key={result.id_usuario}
+                  comment={comment}
+                  languageLocale={languageLocale}
+                />
+              ))
+            ) : (
+              <EmptyComments emptyComments={emptyComments} />
+            )}
           </div>
         </div>
-        <p className="bg-background px-2 my-4 lg:my-0 lg:mb-4 lg:text-lg">
-          {result?.texto}
-        </p>
-        {result?.imagen1_url ? (
-          <ImgsCardPost
-            image1URL={result.imagen1_url}
-            image2URL={result.imagen2_url}
-            image3URL={result.imagen3_url}
-            image4URL={result.imagen4_url}
-            viewImage={viewImage}
-          />
-        ) : null}
-        <p className="w-full h-auto pl-2 my-2 md:text-lg">{`${result?._count.likes} ${likes}`}</p>
-        <LikeAndCommentBar like={like} share={share} comment={comment} />
-        {result?.comentarios.length >= 1 ? (
-          result?.comentarios.map((comment) => (
-            <CommentComponent
-              key={result.id_usuario}
-              comment={comment}
-              languageLocale={languageLocale}
-            />
-          ))
-        ) : (
-          <EmptyComments emptyComments={emptyComments} />
-        )}
         <MakeComment addComment={addComment} />
       </article>
     </>

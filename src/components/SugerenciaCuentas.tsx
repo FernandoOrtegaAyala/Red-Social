@@ -3,7 +3,7 @@ import CuentaSugerida from "./CuentaSugerida";
 export default function SugerenciaCuentas() {
   return (
     <>
-      <div className="hidden lg:absolute right-2 top-24 mt-2 lg:flex lg:flex-col h-20 w-80">
+      <div className="hidden lg:flex lg:flex-col mt-48 h-auto w-full max-w-80 px-4 lg:col-start-4">
         <p className="mb-2 text-textoOpaco">Cuentas sugeridas</p>
         <div className="pr-2">
           <CuentaSugerida textoCuentaSugerida="@cuentaprueba1" />

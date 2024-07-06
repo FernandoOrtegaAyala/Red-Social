@@ -2,6 +2,7 @@ import { Locale } from "@/i18n.config";
 
 import { getDictionary } from "@/lib/dictionary";
 import CardPost from "@/components/CardPost";
+import SugerenciaCuentas from "@/components/SugerenciaCuentas";
 
 export default async function PostId({
   params: { lang, id },
@@ -12,7 +13,7 @@ export default async function PostId({
 
   return (
     <>
-      <div className="w-full h-full bg-background">
+      <div className="w-full h-full bg-background lg:grid lg:grid-cols-4">
         <CardPost
           addComment={Feed.addComment}
           likes={Feed.likes}
@@ -23,7 +24,9 @@ export default async function PostId({
           lang={lang}
           emptyComments={Feed.emptyComments}
           viewImage={Feed.viewImage}
+          linkCopied={Feed.linkCopied}
         />
+        <SugerenciaCuentas />
       </div>
     </>
   );

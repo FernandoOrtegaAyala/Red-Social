@@ -18,7 +18,7 @@ export default function CuentaSugerida({
 
   return (
     <>
-      <div className="flex flex-row justify-between px-2 py-2 mb-3 ">
+      <div className="flex justify-between px-2 py-2 mb-3 flex-wrap ">
         <div className="flex flex-row">
           <Link
             href="/"

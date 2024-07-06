@@ -105,7 +105,8 @@
     "cancel": "Cancel",
     "addComment": "Add a comment...",
     "emptyComments": "This post doesn't have any comments yet. Be the first to make one!",
-    "viewImage": "View image"
+    "viewImage": "View image",
+    "linkCopied": "Link copied to clipboard"
   },
   "404": {
     "notFound": "Page not found"

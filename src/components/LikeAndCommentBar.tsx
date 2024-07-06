@@ -1,15 +1,17 @@
+import ShareLink from "./ShareLink";
 import CommentSVG from "./svg/CommentSVG";
 import LikeSVG from "./svg/LikeSVG";
-import ShareSVG from "./svg/ShareSVG";
 
 export default function LikeAndCommentBar({
   like,
   share,
   comment,
+  linkCopied,
 }: {
   like: string;
   share: string;
   comment: string;
+  linkCopied: string;
 }) {
   return (
     <>
@@ -20,9 +22,7 @@ export default function LikeAndCommentBar({
         <button className="w-7 h-7 mx-2 flex items-center justify-center">
           <CommentSVG comment={comment} color="currentColor" />
         </button>
-        <button className="w-7 h-7 mx-2 flex items-center justify-center">
-          <ShareSVG share={share} />
-        </button>
+        <ShareLink share={share} linkCopied={linkCopied} />
       </div>
     </>
   );

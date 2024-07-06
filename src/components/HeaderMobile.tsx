@@ -19,7 +19,7 @@ export default function HeaderMobile() {
   return (
     <>
       <header className="md:hidden">
-        <div className="z-50 fixed top-0 right-0 px-3 py-2 w-full flex flex-row items-center justify-between h-12 border-b shadow-2xl bg-background">
+        <div className="z-[501] fixed top-0 right-0 px-3 py-2 w-full flex flex-row items-center justify-between h-12 border-b shadow-2xl bg-background">
           <div className="w-auto shrink-0">
             <LogoNombre
               textoOculto="hidden"
