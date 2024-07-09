@@ -178,7 +178,7 @@ export default function ModalCreatePost({
       <div
         id="modalContainer"
         ref={modalContainerRef}
-        className="hidden z-[60] w-full h-screen fixed inset-0 justify-center items-center overflow-hidden">
+        className="hidden z-[500] w-full h-screen fixed inset-0 justify-center items-center overflow-hidden">
         <div
           onClick={handleRemoveAllURLs}
           className="h-screen w-full absolute bg-black bg-opacity-70 inset-0"></div>

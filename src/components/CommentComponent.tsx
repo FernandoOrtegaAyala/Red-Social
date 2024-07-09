@@ -28,7 +28,7 @@ export default async function CommentComponent({
 
   return (
     <>
-      <div className="w-full h-auto px-2 mt-4 md:mt-6 bg-background flex justify-start items-start gap-2">
+      <div className="w-full h-auto px-4 mt-4 md:mt-6 bg-background flex justify-start items-start gap-2">
         <ImagePostProfile
           classDiv="relative overflow-hidden w-12 md:w-10 h-10 lg:w-14 lg:h-14 ml-2 rounded-full"
           classImg="object-cover"

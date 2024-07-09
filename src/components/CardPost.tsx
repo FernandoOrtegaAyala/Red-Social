@@ -4,6 +4,9 @@ import { Locale } from "@/i18n.config";
 import prisma from "@/libs/db";
 import { format } from "date-fns";
 import { enUS, es } from "date-fns/locale";
+import { getServerSession } from "next-auth/next";
+
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 import CommentComponent from "./CommentComponent";
 import EmptyComments from "./EmptyComments";
@@ -23,6 +26,7 @@ export default async function CardPost({
   emptyComments,
   viewImage,
   linkCopied,
+  somethingWrong,
 }: {
   id: string;
   lang: Locale;
@@ -34,6 +38,7 @@ export default async function CardPost({
   emptyComments: string;
   viewImage: string;
   linkCopied: string;
+  somethingWrong: string;
 }) {
   const result = await prisma.posts.findUnique({
     where: {
@@ -56,6 +61,17 @@ export default async function CardPost({
       _count: {
         select: { likes: true },
       },
+    },
+  });
+
+  const session = await getServerSession(authOptions);
+  const user = await prisma.usuarios.findUnique({
+    where: {
+      email: session?.user?.email,
+    },
+    select: {
+      id_usuario: true,
+      avatar: true,
     },
   });
 
@@ -88,7 +104,7 @@ export default async function CardPost({
               </span>
             </div>
           </div>
-          <p className="bg-background w-full px-2 mb-4 lg:text-lg">
+          <p className="bg-background w-full px-4 mb-4 lg:text-lg">
             {result?.texto}
           </p>
           {result?.imagen1_url ? (
@@ -100,12 +116,15 @@ export default async function CardPost({
               viewImage={viewImage}
             />
           ) : null}
-          <p className="w-full h-auto pl-2 my-2 md:text-lg lg:text-xl">{`${result?._count.likes} ${likes}`}</p>
+          <p className="w-full h-auto pl-4 mt-4 md:text-lg lg:text-xl">{`${result?._count.likes} ${likes}`}</p>
           <LikeAndCommentBar
+            user={user}
+            id={id}
             like={like}
             share={share}
             comment={comment}
             linkCopied={linkCopied}
+            somethingWrong={somethingWrong}
           />
           <div className="w-full h-auto max-h-[400px] pb-6 overflow-y-auto">
             {result?.comentarios.length >= 1 ? (
@@ -121,7 +140,7 @@ export default async function CardPost({
             )}
           </div>
         </div>
-        <MakeComment addComment={addComment} />
+        <MakeComment user={user} addComment={addComment} />
       </article>
     </>
   );

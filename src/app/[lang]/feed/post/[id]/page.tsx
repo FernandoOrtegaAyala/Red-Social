@@ -9,8 +9,7 @@ export default async function PostId({
 }: {
   params: { lang: Locale; id: string };
 }) {
-  const { Feed } = await getDictionary(lang);
-
+  const { Feed, Home } = await getDictionary(lang);
   return (
     <>
       <div className="w-full h-full bg-background lg:grid lg:grid-cols-4">
@@ -25,6 +24,7 @@ export default async function PostId({
           emptyComments={Feed.emptyComments}
           viewImage={Feed.viewImage}
           linkCopied={Feed.linkCopied}
+          somethingWrong={Home.somethingWrong}
         />
         <SugerenciaCuentas />
       </div>

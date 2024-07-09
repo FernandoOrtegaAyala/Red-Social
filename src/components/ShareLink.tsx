@@ -32,7 +32,7 @@ export default function ShareLink({
     <>
       <button
         onClick={copyToClipboard}
-        className="w-7 h-7 mx-2 flex items-center justify-center">
+        className="w-7 h-7 mx-2 flex items-center justify-center.">
         <ShareSVG share={share} />
       </button>
       <Toaster position="top-center" theme={theme} richColors={true} />

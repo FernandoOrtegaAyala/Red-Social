@@ -1,26 +1,13 @@
-import prisma from "@/libs/db";
-import { getServerSession } from "next-auth/next";
-
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-
 import ImagePostProfile from "./ImagePostProfile";
 import { Input } from "./ui/input";
 
 export default async function MakeComment({
   addComment,
+  user,
 }: {
   addComment: string;
+  user: any;
 }) {
-  const session = await getServerSession(authOptions);
-  const user = await prisma.usuarios.findUnique({
-    where: {
-      email: session?.user?.email,
-    },
-    select: {
-      avatar: true,
-    },
-  });
-
   return (
     <>
       <div className="fixed z-[100] bottom-16 md:bottom-0 lg:pb-16 md:py-2 md:pl-20 md:pr-8 lg:pl-44 lg:pr-96 bg-background shadow-xl left-0 w-full h-auto flex items-center justify-start px-2 py-2 gap-2">

@@ -16,7 +16,8 @@
     "home": "Return to homepage",
     "wrongPassword": "Wrong password",
     "emailNotRegistered": "Email is not registered",
-    "validatingData": "Validating data ..."
+    "validatingData": "Validating data ...",
+    "somethingWrong": "Something went wrong"
   },
   "Policy": {
     "policyDescription": "The following Privacy Policy sets forth the terms under which information provided by its users is used and protected when using its website. This website was created for academic purposes, and we are committed to the security of user data. When you are asked to fill in personal information fields by which you can be identified, it is done so with the assurance that it will only be used in accordance with the terms of this document. By registering an account, you accept the terms outlined herein.",
