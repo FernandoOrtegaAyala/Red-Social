@@ -14,6 +14,7 @@ import ImagePostProfile from "./ImagePostProfile";
 import ImgsCardPost from "./ImgsCardPost";
 import LikeAndCommentBar from "./LikeAndCommentBar";
 import MakeComment from "./MakeComment";
+import PostNotFound from "./PostNotFound";
 
 export default async function CardPost({
   id,
@@ -27,6 +28,7 @@ export default async function CardPost({
   viewImage,
   linkCopied,
   somethingWrong,
+  postNotFound,
 }: {
   id: string;
   lang: Locale;
@@ -39,6 +41,7 @@ export default async function CardPost({
   viewImage: string;
   linkCopied: string;
   somethingWrong: string;
+  postNotFound: string;
 }) {
   const result = await prisma.posts.findUnique({
     where: {
@@ -127,7 +130,9 @@ export default async function CardPost({
               linkCopied={linkCopied}
               somethingWrong={somethingWrong}
             />
-            <div className="w-full h-auto max-h-[400px] pb-10 lg:pb-20 overflow-y-auto">
+            <div
+              id="comments"
+              className="w-full h-auto max-h-[400px] pb-10 lg:pb-20 overflow-y-auto">
               {result?.comentarios.length >= 1 ? (
                 result?.comentarios.map((comment) => (
                   <CommentComponent
@@ -149,7 +154,7 @@ export default async function CardPost({
           />
         </article>
       ) : (
-        <div>Hola</div>
+        <PostNotFound postNotFound={postNotFound} />
       )}
     </>
   );

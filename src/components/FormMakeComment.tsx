@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { BsArrowUpCircleFill } from "react-icons/bs";
@@ -22,6 +22,7 @@ export default function FormMakeComment({
   const [uploading, setUploading] = useState<boolean>(false);
   const { register, handleSubmit, reset } = useForm();
   const router = useRouter();
+  const commentsContainer = document.getElementById("comments");
 
   const onSubmit = handleSubmit(async (data) => {
     setUploading(true);
@@ -62,6 +63,14 @@ export default function FormMakeComment({
       reset();
     }
   };
+
+  useEffect(() => {
+    if (commentsContainer) {
+      setTimeout(() => {
+        commentsContainer.scrollTop = commentsContainer.scrollHeight;
+      }, 1000);
+    }
+  }, [uploading]);
 
   return (
     <>
