@@ -1,6 +1,6 @@
+import Comment from "./Comment";
 import Like from "./Like";
 import ShareLink from "./ShareLink";
-import CommentSVG from "./svg/CommentSVG";
 
 export default function LikeAndCommentBar({
   like,
@@ -23,9 +23,7 @@ export default function LikeAndCommentBar({
     <>
       <div className="w-full relative h-[70px] pl-14 flex flex-row items-center justify-start bg-background">
         <Like id={id} user={user} somethingWrong={somethingWrong} />
-        <button className="w-7 h-7 mx-2 flex items-center justify-center">
-          <CommentSVG comment={comment} color="currentColor" />
-        </button>
+        <Comment comment={comment} />
         <ShareLink share={share} linkCopied={linkCopied} />
       </div>
     </>
