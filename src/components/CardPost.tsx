@@ -10,10 +10,10 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 import CommentComponent from "./CommentComponent";
 import EmptyComments from "./EmptyComments";
-import ImagePostProfile from "./ImagePostProfile";
 import ImgsCardPost from "./ImgsCardPost";
 import LikeAndCommentBar from "./LikeAndCommentBar";
 import MakeComment from "./MakeComment";
+import PostImgProfile from "./PostImgProfile";
 import PostNotFound from "./PostNotFound";
 
 export default async function CardPost({
@@ -29,6 +29,7 @@ export default async function CardPost({
   linkCopied,
   somethingWrong,
   postNotFound,
+  tryCreating,
 }: {
   id: string;
   lang: Locale;
@@ -42,6 +43,7 @@ export default async function CardPost({
   linkCopied: string;
   somethingWrong: string;
   postNotFound: string;
+  tryCreating: string;
 }) {
   const result = await prisma.posts.findUnique({
     where: {
@@ -51,6 +53,8 @@ export default async function CardPost({
       usuarios: {
         select: {
           nombre_usuario: true,
+          nombre: true,
+          apellidos: true,
           avatar: true,
         },
       },
@@ -82,9 +86,13 @@ export default async function CardPost({
 
   const languageLocale = lang == "es" ? es : enUS;
 
-  const formattedDate = format(result?.fecha_pubicacion, "MMMM d yyyy h:m a", {
-    locale: languageLocale,
-  });
+  const formattedDate = format(
+    result?.fecha_pubicacion ?? new Date(),
+    "MMMM d yyyy h:m a",
+    {
+      locale: languageLocale,
+    }
+  );
 
   return (
     <>
@@ -94,11 +102,13 @@ export default async function CardPost({
           <div
             className={`w-full h-auto ${result?.imagen1_url ? "" : "md:w-[550px] lg:w-full lg:max-w-[800px] md:border border-border md:pb-0 md:p-4 lg:px-6 rounded-md"}`}>
             <div className="w-full h-auto bg-background py-2 flex justify-start items-center gap-2">
-              <ImagePostProfile
+              <PostImgProfile
                 classDiv="relative overflow-hidden w-16 md:w-14 h-14 lg:w-16 lg:h-16 ml-2 rounded-full"
                 classImg="object-cover"
                 linkImg={result?.usuarios?.avatar}
+                result={result}
               />
+
               <div className="w-full h-full py-1 flex flex-col justify-between items-start text-sm">
                 <Link href="/feed" className="font-bold text-xl">
                   {result?.usuarios?.nombre_usuario}
@@ -154,7 +164,7 @@ export default async function CardPost({
           />
         </article>
       ) : (
-        <PostNotFound postNotFound={postNotFound} />
+        <PostNotFound postNotFound={postNotFound} tryCreating={tryCreating} />
       )}
     </>
   );

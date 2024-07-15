@@ -26,6 +26,7 @@ export default async function PostId({
           linkCopied={Feed.linkCopied}
           somethingWrong={Home.somethingWrong}
           postNotFound={Feed.postNotFound}
+          tryCreating={Feed.tryCreating}
         />
         <SugerenciaCuentas />
       </div>

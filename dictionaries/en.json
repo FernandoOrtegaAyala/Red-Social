@@ -108,7 +108,8 @@
     "emptyComments": "This post doesn't have any comments yet. Be the first to make one!",
     "viewImage": "View image",
     "linkCopied": "Link copied to clipboard",
-    "postNotFound": "Post not found. Try creating one!"
+    "postNotFound": "Post not found.",
+    "tryCreating": "Try creating one!"
   },
   "404": {
     "notFound": "Page not found"
